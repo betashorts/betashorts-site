@@ -7,13 +7,14 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #1a1a1a;
-    color: #f0f0f0;
+    background-color: #1a1a1a; /* Dark background */
+    color: #f0f0f0; /* Light text */
+    line-height: 1.6;
 }
 
 /* Header */
 header {
-    background: #333;
+    background: #333; /* Darker background for the header */
     padding: 1rem 0;
 }
 
@@ -22,12 +23,11 @@ header {
     align-items: center;
 }
 
-/* Logo Styling */
 .logo {
     width: 50px;
     height: 50px;
     margin-right: 15px;
-    border-radius: 50%; /* This makes the image circular */
+    border-radius: 50%; /* Makes the image circular */
     object-fit: cover; /* Ensures the image fits the circular container */
 }
 
@@ -51,18 +51,70 @@ header {
     text-decoration: none;
 }
 
+.nav-links li a:hover {
+    text-decoration: underline;
+}
+
 /* Hero Section */
 .hero {
-    background: #444;
+    background: #444; /* Slightly lighter dark background */
     color: white;
     text-align: center;
     padding: 4rem 0;
 }
 
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
 .cta {
-    background-color: #ff6347;
+    display: inline-block;
     padding: 10px 20px;
-    text-decoration: none;
+    margin-right: 10px;
+    background-color: #ff6347; /* Button color */
     color: white;
+    text-decoration: none;
     border-radius: 5px;
+}
+
+.cta:hover {
+    background-color: #e6523b; /* Darker color on hover */
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 20px;
+}
+
+/* Container */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .nav-links li {
+        display: block;
+        margin-bottom: 10px;
+    }
 }
