@@ -2,12 +2,15 @@
 layout: post
 title: "The Building Blocks of Comedy Writing"
 date: 2025-01-04
-meta: '<meta name="description" content="Explore the essential elements of comedy writing, from reversals to witty dialogue. Learn how to craft engaging humor for your screenplays or creative projects.">'
-tags: [comedy, screenwriting, writing tips, humor]
-og: 
+meta: '<meta name="description" content="Explore the essential elements of comedy writing, from reversals to witty dialogue. Learn how to craft engaging humor for your screenplays or creative projects."> <meta name="keywords" content="comedy writing, screenwriting, humor, writing tips, reversals, dialogue, creative projects, comedy techniques">  <meta name="author" content="Screenplay Writer"> <meta name="robots" content="index, follow"> <link rel="canonical" href="https://scriptandpad.com/the-building-blocks-of-comedy-writing">'  
+og: >
   title: "The Building Blocks of Comedy Writing"
   description: "Explore the essential elements of comedy writing, from reversals to witty dialogue. Learn how to craft engaging humor for your screenplays or creative projects."
   url: "https://scriptandpad.com/the-building-blocks-of-comedy-writing"
+  type: "article"
+  image: "https://scriptandpad.com/assets/images/comedy-writing.jpg" # Replace with the actual image URL
+tags: [comedy, screenwriting, writing tips, humor, reversals, dialogue]
+lang: "en"
 ---
 <p>Comedy is an art that thrives on timing, surprise, and relatability. Whether you're writing a screenplay, a blog, or a short skit, understanding the mechanics of humor can transform your work from mildly amusing to laugh-out-loud funny. Here's a quick dive into the essential elements of comedy writing, with practical tips to help you craft your own moments of hilarity.</p>
 
