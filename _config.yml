@@ -2,6 +2,7 @@ title: Script and Pad
 description: Blog for my product
 url: "https://scriptandpad.com"
 theme: minima
+permalink: /:title/
 markdown: kramdown
 plugins:
   - jekyll-sitemap
