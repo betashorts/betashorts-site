@@ -13,53 +13,56 @@ body {
 }
 
 /* Header */
-header {
-    background: #1e1e2f; /* Dark background for the header */
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.navbar {
+    background-color: #1e1e2f;
+    padding: 0.75rem 1.5rem;
+    color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.logo-container {
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.navbar-brand {
     display: flex;
     align-items: center;
-}
-
-.logo {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.brand {
-    font-size: 1.5rem;
-    color: #fff;
     text-decoration: none;
+    color: #fff;
+    font-size: 1.25rem;
     font-weight: bold;
 }
 
-.nav-links {
+.navbar-logo {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.navbar-links {
     list-style: none;
     display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
 }
 
-.nav-links li {
-    margin-left: 20px;
+.navbar-links li {
+    display: inline;
 }
 
-.nav-links li a {
-    color: #fff;
+.navbar-links a {
     text-decoration: none;
+    color: #fff;
     font-size: 1rem;
     transition: color 0.3s ease;
 }
 
-.nav-links li a:hover {
-    color: #ffd700; /* Gold hover effect */
+.navbar-links a:hover {
+    color: #ff9800;
 }
 
 /* Hero Section */
@@ -198,31 +201,84 @@ footer {
     background-color: #1e1e2f;
     color: #fff;
     text-align: center;
-    padding: 1.5rem 0;
-    font-size: 0.9rem;
-    margin-top: 3rem;
+    padding: 1rem 0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
 }
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 0.9rem;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* Hero Section */
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2rem; /* Reduced size for better scaling */
+        text-align: center;
     }
 
     .hero p {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        text-align: center;
+        margin: 0 1rem; /* Add some margin for better readability */
     }
 
-    .nav-links {
+    /* Navbar */
+    .navbar-container {
         flex-direction: column;
         align-items: center;
     }
 
-    .nav-links li {
-        margin-bottom: 10px;
+    .navbar-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem; /* Adjust spacing for stacked links */
     }
 
+    .navbar-links li {
+        margin-bottom: 0;
+    }
+
+    /* Blog Post Card */
     .blog-post {
-        padding: 1.5rem;
+        padding: 1.25rem; /* Slightly smaller padding for tighter layout */
+        margin: 1rem 0; /* Add margin for better separation */
+        width: 90%; /* Reduce width for smaller screens */
+    }
+
+    /* Footer */
+    footer {
+        font-size: 0.8rem; /* Reduce font size for smaller screens */
+        padding: 0.75rem; /* Adjust padding for compact layout */
+    }
+
+    .footer-container {
+        padding: 0 1rem; /* Add side padding for better alignment */
+    }
+}
+
+/* Very Small Screens */
+@media (max-width: 480px) {
+    /* Navbar Logo */
+    .navbar-logo {
+        width: 30px; /* Reduce logo size for smaller screens */
+    }
+
+    /* Blog Post Card */
+    .blog-post {
+        font-size: 0.9rem; /* Adjust font size for better readability */
+    }
+
+    /* Hero Section */
+    .hero h1 {
+        font-size: 1.8rem; /* Further reduced size */
+    }
+
+    .hero p {
+        font-size: 0.9rem;
     }
 }
