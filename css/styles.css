@@ -20,14 +20,39 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Navbar Logo Styling */
+.navbar-logo {
+    height: 40px; /* Resizing the logo */
+    margin-right: 10px; /* Adding space between the logo and text */
+    display: inline-block; /* Ensuring it aligns with text */
+    vertical-align: middle; /* Aligns the logo vertically with the text */
+}
+
+/* Navbar Container */
 .navbar-container {
+    display: flex;
+    align-items: center; /* Align logo and text vertically */
+    padding: 0.5rem 1rem; /* Adjust padding for better spacing */
+}
+
+/* Navbar Title Styling */
+.navbar-title {
+    font-size: 1.5rem; /* Adjust text size to match logo */
+    font-weight: bold;
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle; /* Align text vertically with the logo */
+}
+
+
+/* .navbar-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
 }
-
+ */
 .navbar-brand {
     display: flex;
     align-items: center;
@@ -37,11 +62,11 @@ body {
     font-weight: bold;
 }
 
-.navbar-logo {
+/* .navbar-logo {
     width: 40px;
     margin-right: 10px;
 }
-
+ */
 .navbar-links {
     list-style: none;
     display: flex;
