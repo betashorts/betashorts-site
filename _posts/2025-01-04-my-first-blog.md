@@ -1,15 +1,8 @@
 ---
 layout: post
-title: "My First Blog"
+title: "My First Blog Post"
 date: 2025-01-04
-categories: blog
-tags: [tag1, tag2]
+meta: '<meta name="description" content="Learn about our first blog post!">'
 ---
-
-Welcome to my first blog post!
-
-## Section 1
-This is a subheading.
-
-- Point 1
-- Point 2
+<h1>My First Blog Post</h1>
+<p>This is the content of my first blog post.</p>
