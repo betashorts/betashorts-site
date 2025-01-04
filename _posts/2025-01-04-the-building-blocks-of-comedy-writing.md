@@ -8,7 +8,6 @@ og: >
   description: "Explore the essential elements of comedy writing, from reversals to witty dialogue. Learn how to craft engaging humor for your screenplays or creative projects."
   url: "https://scriptandpad.com/the-building-blocks-of-comedy-writing"
   type: "article"
-  image: "https://scriptandpad.com/assets/images/comedy-writing.jpg" # Replace with the actual image URL
 tags: [comedy, screenwriting, writing tips, humor, reversals, dialogue]
 lang: "en"
 ---
