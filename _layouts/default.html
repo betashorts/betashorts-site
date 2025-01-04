@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>{{ page.title }}</title>
-  <meta name="description" content="{{ page.description }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="css/styles.css">
+    {{ page.meta | default: "" }}
 </head>
 <body>
-  {{ content }}
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Script Pad Logo" class="logo">
+                <a href="index.html" class="brand">Screenplay Writer</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/privacy.html">Privacy Policy</a></li>
+                <li><a href="/terms.html">Terms of Service</a></li>
+                <li><a href="/support.html">Support</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {{ content }}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Screenplay Writer. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
