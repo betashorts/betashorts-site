@@ -1,0 +1,7 @@
+title: Script and Pad
+description: Blog for my product
+url: "https://scriptandpad.com"
+theme: minima
+markdown: kramdown
+plugins:
+  - jekyll-sitemap
