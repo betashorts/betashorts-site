@@ -9,6 +9,7 @@ og: >
   url: "https://scriptandpad.com/the-building-blocks-of-comedy-writing"
   type: "article"
 tags: [comedy, screenwriting, writing tips, humor, reversals, dialogue]
+image: "https://scriptandpad.com/logo.jpg"
 lang: "en"
 ---
 <p>Comedy is an art that thrives on timing, surprise, and relatability. Whether you're writing a screenplay, a blog, or a short skit, understanding the mechanics of humor can transform your work from mildly amusing to laugh-out-loud funny. Here's a quick dive into the essential elements of comedy writing, with practical tips to help you craft your own moments of hilarity.</p>
