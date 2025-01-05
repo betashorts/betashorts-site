@@ -1,9 +1,11 @@
-title: Script and Pad
-description: Blog for my product
+title: "Screenplay Writer"
+description: "Learn to create engaging screenplays with tips, insights, and techniques for writers."
 url: "https://scriptandpad.com"
 theme: minima
 permalink: /:title/
 markdown: kramdown
+author: "Screenplay Writer"
+default_image: "https://scriptandpad.com/logo.jpg"
 plugins:
   - jekyll-sitemap
   - jekyll-redirect-from
