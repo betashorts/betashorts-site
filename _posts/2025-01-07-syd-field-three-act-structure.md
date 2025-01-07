@@ -2,7 +2,7 @@
 layout: post
 title: "Syd Field Three Act Structure"
 date: 2025-01-07
-meta: '<meta name="description" content="Learn Syd Field's Three Act Structure, a storytelling framework that forms the foundation of successful screenplays. Plan and execute your script with clarity.">  <meta name="keywords" content="Syd Field, three act structure, screenplay writing, script structure, storytelling framework">  <meta name="author" content="Screenplay Writer">  <meta name="robots" content="index, follow">  <link rel="canonical" href="https://scriptandpad.com/syd-field-three-act-structure">'
+meta: '<meta name="description" content="Learn Syd Field's Three Act Structure, a storytelling framework that forms the foundation of successful screenplays. Plan and execute your script with clarity."><meta name="keywords" content="Syd Field, three act structure, screenplay writing, script structure, storytelling framework"><meta name="author" content="Screenplay Writer"><meta name="robots" content="index, follow"><link rel="canonical" href="https://scriptandpad.com/syd-field-three-act-structure">'
 og: >
   title: "Syd Field Three Act Structure"
   description: "Master Syd Field's Three Act Structure and elevate your screenplay with a proven storytelling framework used by industry professionals."
@@ -11,9 +11,6 @@ og: >
   image: "https://scriptandpad.com/logo.jpg"
 tags: [Syd Field, screenwriting, storytelling, three act structure, scriptwriting]
 ---
-
-<h1>Syd Field Three Act Structure</h1>
-
 <p>Every great screenplay has a backbone, a framework that guides the story from beginning to end. Syd Field, one of the most influential screenplay theorists, introduced the <strong>Three Act Structure</strong>, a storytelling blueprint that has shaped countless successful films. In this post, we’ll break down the structure, understand its components, and show you how to apply it to your own scripts.</p>
 
 <h2>Let’s Build the Foundation</h2>
