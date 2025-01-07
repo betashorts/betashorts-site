@@ -11,9 +11,6 @@ og: >
   image: "https://scriptandpad.com/logo.jpg"
 tags: [short film, scriptwriting, screenplay, storytelling, formatting]
 ---
-
-<h1>How to Write a Script for a Short Film</h1>
-
 <p>Short films are a unique and exciting storytelling medium, offering a powerful way to express a concise yet impactful narrative. But writing a short film script comes with its own challenges: you have limited time to engage the audience, develop characters, and deliver a satisfying conclusion. In this blog, we’ll break down the process of writing a script for a short film, from crafting a compelling story to formatting it professionally.</p>
 
 <h2>1. Why Write a Short Film?</h2>
