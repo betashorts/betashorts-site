@@ -49,15 +49,7 @@ tags: [Syd Field, screenwriting, storytelling, three act structure, scriptwritin
 <h2>5. Formatting Matters</h2>
 <p>Proper formatting ensures your script looks professional and adheres to industry standards. Tools like the <a href="https://workspace.google.com/marketplace/app/screenplay_writer/417536167724" target="_blank">Screenplay Writer Google Docs add-on</a> make formatting effortless, allowing you to focus on your story without worrying about technical details.</p>
 
-<h2>6. Examples of Scripts Following the Three Act Structure</h2>
-<p>Here are some famous scripts that demonstrate the Three Act Structure:</p>
-<ul>
-  <li><a href="https://www.scriptslug.com/script/star-wars-1977" target="_blank">Star Wars: A New Hope</a></li>
-  <li><a href="https://www.scriptslug.com/script/the-dark-knight-2008" target="_blank">The Dark Knight</a></li>
-  <li><a href="https://www.scriptslug.com/script/the-shawshank-redemption-1994" target="_blank">The Shawshank Redemption</a></li>
-</ul>
-
-<h2>7. Write Your Script with Screenplay Writer</h2>
+<h2>6. Write Your Script with Screenplay Writer</h2>
 <p>If you’re writing your screenplay in Google Docs, the <a href="https://workspace.google.com/marketplace/app/screenplay_writer/417536167724" target="_blank">Screenplay Writer Google Docs add-on</a> is your perfect companion. Plan your acts, collaborate with others, and format your script seamlessly—all within Google Docs. Start with a 7-day free trial and enjoy a one-time subscription fee of just $9.99.</p>
 
 <h2>Conclusion</h2>
