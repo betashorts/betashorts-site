@@ -11,9 +11,6 @@ og: >
   image: "https://scriptandpad.com/logo.jpg"
 tags: [John Yorke, Into the Woods, storytelling, screenwriting, five-act structure]
 ---
-
-<h1>Into the Woods by John Yorke</h1>
-
 <p>For anyone passionate about storytelling—whether you're crafting a screenplay, a novel, or even a compelling article—John Yorke’s <em>Into the Woods: How Stories Work and Why We Tell Them</em> is a must-read. Yorke goes beyond the confines of rigid narrative structures and delves into the very essence of what makes stories resonate with audiences.</p>
 
 <h2>A Journey into the Five-Act Structure</h2>
