@@ -11,9 +11,6 @@ og: >
   image: "https://scriptandpad.com/logo.jpg"
 tags: [Robert McKee, storytelling, screenwriting, narrative structure, Story book summary]
 ---
-
-<h1>Robert McKee Story Summary</h1>
-
 <p>Robert McKee’s book, <em>Story: Substance, Structure, Style and the Principles of Screenwriting</em>, is widely regarded as a bible for screenwriters and storytellers. Let’s delve into its core principles and understand why it has become an essential guide for crafting compelling narratives.</p>
 
 <h2>Understanding Storytelling: The McKee Way</h2>
