@@ -20,28 +20,28 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-logo {
-    width: 50px; /* Adjust the size of the logo */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 10px; /* Spacing between logo and text */
-    border-radius: 5px; /* Slight rounding for a polished look */
-    object-fit: contain; /* Ensure the logo fits nicely without distortion */
-}
-
-.navbar-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Add consistent spacing between logo and text */
-}
-
 .navbar-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0.5rem 1rem; /* Add some vertical padding for better spacing */
 }
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.navbar-logo {
+    width: 40px;
+    margin-right: 10px;
+}
+ 
 
 .navbar-links {
     list-style: none;
