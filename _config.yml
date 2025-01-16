@@ -1,11 +1,11 @@
-title: "Screenplay Writer"
-description: "Learn to create engaging screenplays with tips, insights, and techniques for writers."
-url: "https://scriptandpad.com"
+title: "Beta Shorts: GPU Reviews, Hardware Insights, and Tech Tutorials"
+description: "Discover in-depth reviews of GPUs and processors, explore hardware insights, and learn with hands-on tech tutorials. Beta Shorts is your trusted source for staying ahead in the tech world."
+url: "https://betashorts.com"
 theme: minima
 permalink: /:title/
 markdown: kramdown
-author: "Screenplay Writer"
-default_image: "https://scriptandpad.com/logo.jpg"
+author: "Beta Shorts | Tech Enthusiast and Hardware Explorer"
+default_image: "https://betashorts.com/logo.jpg"
 plugins:
   - jekyll-sitemap
   - jekyll-redirect-from
