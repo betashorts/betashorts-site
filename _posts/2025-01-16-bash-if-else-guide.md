@@ -2,6 +2,7 @@
 layout: post
 title: "Bashのif elseステートメントガイド：初心者向け解説"
 date: 2025-01-16
+lang: "ja"  # Set the language for this blog
 meta: '<meta name="description" content="Bashスクリプトでのif elseステートメントの基本、構文、実践的な例を初心者向けに詳しく解説します。ファイルチェックや正規表現の活用方法も紹介します。"><meta name="keywords" content="Bash if else, Bashスクリプト, Linuxスクリプト, ファイルチェック, 条件文, Bash初心者ガイド"><meta name="author" content="Beta Shorts"><meta name="robots" content="index, follow"><link rel="canonical" href="https://betashorts.com/bash-if-else-guide">'
 og: >
   title: "Bashのif elseステートメントガイド：初心者向け解説"
