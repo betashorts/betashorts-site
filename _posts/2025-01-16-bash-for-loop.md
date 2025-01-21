@@ -9,7 +9,7 @@ og: >
   description: "Bashスクリプトのforループを初心者向けに解説。構文や応用例を交えて、効率的なスクリプト作成をサポートします。"
   url: "https://betashorts.com/bash-for-loop"
   type: "article"
-  image: "https://betashorts.com/images/bash-for-loop-guide.jpg"
+  image: "https://betashorts.com/logo.jpg"
 tags: [Bash, Linux, スクリプト, ループ, ファイル操作, 初心者向け]
 ---
 
