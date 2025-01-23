@@ -2,6 +2,7 @@
 layout: post
 title: "Git Bashとは？基本と使い方を初心者向けに解説"
 date: 2025-01-19
+lang: "ja"
 meta: '<meta name="description" content="Git Bashとは何かを初心者向けに解説。GitとLinuxコマンドをWindowsで活用するための基本的な使い方や特徴を学びましょう。"><meta name="keywords" content="Git Bash, Git Bashとは, Git, Windows, Bash, Linuxコマンド, 初心者向け, Gitコマンド"><meta name="author" content="Beta Shorts"><meta name="robots" content="index, follow"><link rel="canonical" href="https://betashorts.com/git-bash-intro">'
 og: >
   title: "Git Bashとは？基本と使い方を初心者向けに解説"
