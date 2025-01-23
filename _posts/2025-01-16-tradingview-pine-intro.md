@@ -2,6 +2,7 @@
 layout: post
 title: "TradingView Pineスクリプト入門：初心者向けガイド"
 date: 2025-01-16
+lang: "ja"
 meta: '<meta name="description" content="TradingViewでのPineスクリプトの基本を初心者向けに解説。インジケーター作成やバックテストの基礎を学び、効率的にトレード分析を始めましょう。"><meta name="keywords" content="TradingView, Pineスクリプト, インジケーター作成, トレード分析, Pineスクリプト入門, トレーディング"><meta name="author" content="Beta Shorts"><meta name="robots" content="index, follow"><link rel="canonical" href="https://betashorts.com/tradingview-pine-intro">'
 og: >
   title: "TradingView Pineスクリプト入門：初心者向けガイド"
