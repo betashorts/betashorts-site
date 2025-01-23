@@ -2,6 +2,7 @@
 layout: post
 title: "Bashとは？基本と活用法を初心者向けに解説"
 date: 2025-01-18
+lang: "ja"
 meta: '<meta name="description" content="Bashとは何かを初心者向けに解説。Bashシェルの基本、特徴、使い方を詳しく紹介し、効率的なスクリプト作成方法も学べます。"><meta name="keywords" content="Bash, Bashとは, Linux, Bashスクリプト, 初心者向け, シェルスクリプト, 自動化, Bashチートシート"><meta name="author" content="Beta Shorts"><meta name="robots" content="index, follow"><link rel="canonical" href="https://betashorts.com/bash-intro">'
 og: >
   title: "Bashとは？基本と活用法を初心者向けに解説"
