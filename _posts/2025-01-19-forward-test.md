@@ -2,6 +2,7 @@
 layout: post
 title: "フォワードテストの重要性とTradingViewでの活用方法"
 date: 2025-01-19
+lang: "ja"
 meta: '<meta name="description" content="フォワードテストの基本を初心者向けに解説。TradingViewとPineスクリプトを活用してトレード戦略のリアルタイム検証を行う方法を紹介します。"><meta name="keywords" content="フォワードテスト, TradingView, Pineスクリプト, トレード戦略, リアルタイム分析, トレード検証"><meta name="author" content="Beta Shorts"><meta name="robots" content="index, follow"><link rel="canonical" href="https://betashorts.com/forward-test">'
 og: >
   title: "フォワードテストの重要性とTradingViewでの活用方法"
