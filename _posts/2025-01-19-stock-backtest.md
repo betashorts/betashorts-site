@@ -2,6 +2,7 @@
 layout: post
 title: "株のバックテスト：Pineスクリプトで戦略を検証する"
 date: 2025-01-19
+lang: "ja"
 meta: '<meta name="description" content="株式投資でのバックテストを初心者向けに解説。Pineスクリプトを活用してTradingViewで効率的に戦略を検証する方法を学びましょう。"><meta name="keywords" content="株, バックテスト, Pineスクリプト, TradingView, 投資戦略, 株式分析, バックテスト方法"><meta name="author" content="Beta Shorts"><meta name="robots" content="index, follow"><link rel="canonical" href="https://betashorts.com/stock-backtest">'
 og: >
   title: "株のバックテスト：Pineスクリプトで戦略を検証する"
