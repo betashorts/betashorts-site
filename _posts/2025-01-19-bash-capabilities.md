@@ -2,6 +2,7 @@
 layout: post
 title: "Bashで何ができる？活用法と基本を初心者向けに解説"
 date: 2025-01-19
+lang: "ja"
 meta: '<meta name="description" content="Bashでできることを初心者向けに解説。システム管理からタスクの自動化、スクリプト作成まで、Bashの多彩な機能を紹介します。"><meta name="keywords" content="Bash, Bash活用法, Linux, Bashスクリプト, システム管理, 自動化, 初心者向け, タスク管理"><meta name="author" content="Beta Shorts"><meta name="robots" content="index, follow"><link rel="canonical" href="https://betashorts.com/bash-capabilities">'
 og: >
   title: "Bashで何ができる？活用法と基本を初心者向けに解説"
