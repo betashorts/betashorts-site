@@ -2,6 +2,7 @@
 layout: post
 title: "Twitterフォロワーを増やす方法：初心者向けガイド"
 date: 2025-01-25
+lang: "ja"
 meta: '<meta name="description" content="Twitterでフォロワーを増やすための具体的な方法を初心者向けに解説。コンテンツ作成、コミュニケーション戦略、そしてDavid Vassalloの実績に基づく成功のヒントを学びましょう。"><meta name="keywords" content="Twitter, フォロワー増やす方法, SNSマーケティング, コンテンツ作成, オーディエンス構築, David Vassallo"><meta name="author" content="Beta Shorts"><meta name="robots" content="index, follow"><link rel="canonical" href="https://betashorts.com/how-to-grow-twitter-followers">'
 og: >
   title: "Twitterフォロワーを増やす方法：初心者向けガイド"
