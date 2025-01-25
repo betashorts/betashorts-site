@@ -2,6 +2,7 @@
 layout: post
 title: "Twitterフォロワー増やし方：成功するための戦略とヒント"
 date: 2025-01-25
+lang: "ja"
 meta: '<meta name="description" content="Twitterでフォロワーを増やす方法を初心者向けに解説。David Vassalloの戦略をもとに、具体的な成功のヒントを学びましょう。"><meta name="keywords" content="Twitter, フォロワー増やし方, SNSマーケティング, オーディエンス構築, David Vassallo"><meta name="author" content="Beta Shorts"><meta name="robots" content="index, follow"><link rel="canonical" href="https://betashorts.com/how-to-grow-twitter-followers">'
 og: >
   title: "Twitterフォロワー増やし方：成功するための戦略とヒント"
