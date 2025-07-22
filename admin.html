@@ -1,68 +1,84 @@
 ---
 layout: default
-title: "Admin Panel - Beta Shorts"
-meta: '<meta name="description" content="Admin panel for managing site content and images.">'
+title: "Admin Panel - Home Template Editor"
+meta: '<meta name="description" content="Admin panel for editing home template content with live preview.">'
 ---
 
 <style>
-/* Admin Panel Styles */
 .admin-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.admin-header {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.admin-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.admin-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.admin-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    padding: 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    min-height: 100vh;
-}
-
-.admin-panel {
-    background: #f8fafc;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    max-height: 90vh;
-}
-
-.preview-panel {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    max-height: 90vh;
-}
-
-.admin-section {
     margin-bottom: 2rem;
-    padding: 1.5rem;
-    background: #ffffff;
-    border-radius: 8px;
+}
+
+.editor-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border: 1px solid #e2e8f0;
 }
 
-.admin-section h3 {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.25rem;
+.preview-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    position: sticky;
+    top: 2rem;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
     font-weight: 600;
     color: #1e293b;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #3b82f6;
+    border-bottom: 2px solid #e2e8f0;
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-group label {
     display: block;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
+    font-weight: 600;
     color: #374151;
     margin-bottom: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 .form-group input,
@@ -71,9 +87,9 @@ meta: '<meta name="description" content="Admin panel for managing site content a
     width: 100%;
     padding: 0.75rem;
     border: 2px solid #e2e8f0;
-    border-radius: 6px;
+    border-radius: 8px;
     font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     transition: border-color 0.3s ease;
 }
 
@@ -88,61 +104,6 @@ meta: '<meta name="description" content="Admin panel for managing site content a
 .form-group textarea {
     resize: vertical;
     min-height: 80px;
-}
-
-.btn-group {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.btn {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 6px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-primary {
-    background: #3b82f6;
-    color: #ffffff;
-}
-
-.btn-primary:hover {
-    background: #2563eb;
-    transform: translateY(-1px);
-}
-
-.btn-secondary {
-    background: #6b7280;
-    color: #ffffff;
-}
-
-.btn-secondary:hover {
-    background: #4b5563;
-    transform: translateY(-1px);
-}
-
-.btn-success {
-    background: #10b981;
-    color: #ffffff;
-}
-
-.btn-success:hover {
-    background: #059669;
-    transform: translateY(-1px);
-}
-
-.preview-frame {
-    width: 100%;
-    height: 600px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    background: #ffffff;
 }
 
 .image-upload {
@@ -162,395 +123,485 @@ meta: '<meta name="description" content="Admin panel for managing site content a
     display: none;
 }
 
-.upload-label {
+.upload-btn {
+    background: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    color: #6b7280;
-    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
 }
 
-.upload-label:hover {
-    color: #3b82f6;
+.upload-btn:hover {
+    background: #2563eb;
 }
 
-.current-image {
-    margin: 1rem 0;
-    padding: 1rem;
-    background: #f3f4f6;
-    border-radius: 6px;
+.preview-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.current-image img {
-    max-width: 100px;
-    max-height: 100px;
-    border-radius: 4px;
-    margin-right: 1rem;
+.size-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
-.status-message {
-    padding: 0.75rem;
-    border-radius: 6px;
-    margin: 1rem 0;
-    font-family: 'Inter', sans-serif;
+.size-controls input {
+    padding: 0.5rem;
     font-size: 0.9rem;
 }
 
-.status-success {
-    background: #d1fae5;
-    color: #065f46;
-    border: 1px solid #a7f3d0;
+.actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e2e8f0;
 }
 
-.status-error {
-    background: #fee2e2;
-    color: #991b1b;
-    border: 1px solid #fca5a5;
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
 }
 
-.status-info {
-    background: #dbeafe;
-    color: #1e40af;
-    border: 1px solid #93c5fd;
+.btn-primary {
+    background: #3b82f6;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2563eb;
+}
+
+.btn-secondary {
+    background: #6b7280;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #4b5563;
+}
+
+.btn-success {
+    background: #10b981;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #059669;
+}
+
+.preview-content {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #f9fafb;
+    margin-bottom: 1rem;
+}
+
+.preview-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #1e293b;
+}
+
+.preview-content p {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+    .admin-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .preview-panel {
+        position: static;
+        max-height: none;
+    }
 }
 
 @media (max-width: 768px) {
     .admin-container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
         padding: 1rem;
     }
     
-    .admin-panel,
-    .preview-panel {
-        max-height: none;
+    .admin-header h1 {
+        font-size: 2rem;
+    }
+    
+    .size-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .actions {
+        flex-direction: column;
     }
 }
 </style>
 
 <div class="admin-container">
-    <!-- Admin Panel -->
-    <div class="admin-panel">
-        <h2 style="font-family: 'Playfair Display', serif; color: #1e293b; margin-bottom: 2rem;">Admin Panel</h2>
-        
-        <div id="status-message"></div>
-        
-        <!-- Hero Section -->
-        <div class="admin-section">
-            <h3>Hero Section</h3>
+    <div class="admin-header">
+        <h1>Home Template Admin Panel</h1>
+        <p>Edit and preview your home template content in real-time</p>
+    </div>
+
+    <div class="admin-layout">
+        <!-- Editor Panel -->
+        <div class="editor-panel">
+            <h2 class="section-title">Content Editor</h2>
+            
+            <!-- Hero Section Editor -->
             <div class="form-group">
-                <label for="hero-title">Hero Title</label>
-                <input type="text" id="hero-title" value="Transform Your Business with Innovative Solutions">
+                <label>Hero Title</label>
+                <input type="text" id="hero-title" value="Transform Your Business with Innovative Solutions" onchange="updatePreview()">
             </div>
+            
             <div class="form-group">
-                <label for="hero-subtitle">Hero Subtitle</label>
-                <textarea id="hero-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</textarea>
+                <label>Hero Subtitle</label>
+                <textarea id="hero-subtitle" onchange="updatePreview()">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</textarea>
             </div>
+            
             <div class="form-group">
-                <label for="hero-btn-primary">Primary Button Text</label>
-                <input type="text" id="hero-btn-primary" value="Explore Services">
+                <label>Hero Image</label>
+                <div class="image-upload">
+                    <input type="file" id="hero-image-upload" accept="image/*" onchange="handleImageUpload(this, 'hero-image')">
+                    <button type="button" class="upload-btn" onclick="document.getElementById('hero-image-upload').click()">
+                        Choose Hero Image
+                    </button>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #6b7280;">
+                        Recommended size: 600x400px
+                    </p>
+                </div>
+                <div class="size-controls">
+                    <input type="number" id="hero-width" placeholder="Width" value="600" onchange="updateImageSize('hero-image')">
+                    <input type="number" id="hero-height" placeholder="Height" value="400" onchange="updateImageSize('hero-image')">
+                </div>
             </div>
+            
             <div class="form-group">
-                <label for="hero-btn-secondary">Secondary Button Text</label>
-                <input type="text" id="hero-btn-secondary" value="Get Started">
+                <label>Hero Image Alt Text</label>
+                <input type="text" id="hero-alt" value="Business transformation illustration showing growth and innovation" onchange="updatePreview()">
             </div>
-        </div>
-        
-        <!-- Services Section -->
-        <div class="admin-section">
-            <h3>Services Section</h3>
+            
+            <!-- Services Section Editor -->
+            <h3 style="margin-top: 2rem; color: #1e293b; font-family: 'Playfair Display', serif;">Services Section</h3>
+            
             <div class="form-group">
-                <label for="services-title">Section Title</label>
-                <input type="text" id="services-title" value="What We Offer">
+                <label>Section Title</label>
+                <input type="text" id="services-title" value="What We Offer" onchange="updatePreview()">
             </div>
+            
             <div class="form-group">
-                <label for="services-subtitle">Section Subtitle</label>
-                <textarea id="services-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</textarea>
+                <label>Section Subtitle</label>
+                <textarea id="services-subtitle" onchange="updatePreview()">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</textarea>
             </div>
             
             <!-- Service 1 -->
+            <h4 style="margin-top: 1.5rem; color: #374151;">Service 1</h4>
             <div class="form-group">
-                <label for="service1-title">Service 1 Title</label>
-                <input type="text" id="service1-title" value="Strategic Planning">
+                <label>Service Title</label>
+                <input type="text" id="service1-title" value="Strategic Planning" onchange="updatePreview()">
             </div>
             <div class="form-group">
-                <label for="service1-description">Service 1 Description</label>
-                <textarea id="service1-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</textarea>
+                <label>Service Description</label>
+                <textarea id="service1-desc" onchange="updatePreview()">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</textarea>
             </div>
             
             <!-- Service 2 -->
+            <h4 style="margin-top: 1.5rem; color: #374151;">Service 2</h4>
             <div class="form-group">
-                <label for="service2-title">Service 2 Title</label>
-                <input type="text" id="service2-title" value="Digital Transformation">
+                <label>Service Title</label>
+                <input type="text" id="service2-title" value="Digital Transformation" onchange="updatePreview()">
             </div>
             <div class="form-group">
-                <label for="service2-description">Service 2 Description</label>
-                <textarea id="service2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</textarea>
+                <label>Service Description</label>
+                <textarea id="service2-desc" onchange="updatePreview()">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</textarea>
             </div>
             
             <!-- Service 3 -->
+            <h4 style="margin-top: 1.5rem; color: #374151;">Service 3</h4>
             <div class="form-group">
-                <label for="service3-title">Service 3 Title</label>
-                <input type="text" id="service3-title" value="Analytics & Insights">
+                <label>Service Title</label>
+                <input type="text" id="service3-title" value="Analytics & Insights" onchange="updatePreview()">
             </div>
             <div class="form-group">
-                <label for="service3-description">Service 3 Description</label>
-                <textarea id="service3-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</textarea>
+                <label>Service Description</label>
+                <textarea id="service3-desc" onchange="updatePreview()">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</textarea>
             </div>
             
             <!-- Service 4 -->
+            <h4 style="margin-top: 1.5rem; color: #374151;">Service 4</h4>
             <div class="form-group">
-                <label for="service4-title">Service 4 Title</label>
-                <input type="text" id="service4-title" value="24/7 Support">
+                <label>Service Title</label>
+                <input type="text" id="service4-title" value="24/7 Support" onchange="updatePreview()">
             </div>
             <div class="form-group">
-                <label for="service4-description">Service 4 Description</label>
-                <textarea id="service4-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</textarea>
+                <label>Service Description</label>
+                <textarea id="service4-desc" onchange="updatePreview()">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</textarea>
             </div>
-        </div>
-        
-        <!-- Contact Section -->
-        <div class="admin-section">
-            <h3>Contact Section</h3>
+            
+            <!-- Contact Section Editor -->
+            <h3 style="margin-top: 2rem; color: #1e293b; font-family: 'Playfair Display', serif;">Contact Section</h3>
+            
             <div class="form-group">
-                <label for="contact-title">Contact Title</label>
-                <input type="text" id="contact-title" value="Get In Touch">
-            </div>
-            <div class="form-group">
-                <label for="contact-subtitle">Contact Subtitle</label>
-                <textarea id="contact-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</textarea>
-            </div>
-            <div class="form-group">
-                <label for="contact-address">Address</label>
-                <input type="text" id="contact-address" value="123 Business Street, Suite 100, New York, NY 10001">
-            </div>
-            <div class="form-group">
-                <label for="contact-email">Email</label>
-                <input type="email" id="contact-email" value="hello@company.com">
-            </div>
-            <div class="form-group">
-                <label for="contact-phone">Phone</label>
-                <input type="text" id="contact-phone" value="+1 (555) 123-4567">
-            </div>
-        </div>
-        
-        <!-- Image Management -->
-        <div class="admin-section">
-            <h3>Image Management</h3>
-            <div class="form-group">
-                <label for="hero-image">Hero Image</label>
-                <div class="image-upload">
-                    <input type="file" id="hero-image-file" accept="image/*">
-                    <label for="hero-image-file" class="upload-label">
-                        📁 Click to upload new hero image
-                    </label>
-                </div>
-                <div class="current-image">
-                    <img src="https://via.placeholder.com/600x400/2563eb/ffffff?text=Hero+Image" alt="Current hero image">
-                    <span>Current: Hero Image</span>
-                </div>
+                <label>Contact Title</label>
+                <input type="text" id="contact-title" value="Get In Touch" onchange="updatePreview()">
             </div>
             
             <div class="form-group">
-                <label for="service1-icon">Service 1 Icon</label>
-                <div class="image-upload">
-                    <input type="file" id="service1-icon-file" accept="image/*">
-                    <label for="service1-icon-file" class="upload-label">
-                        📁 Click to upload new icon
-                    </label>
-                </div>
-                <div class="current-image">
-                    <img src="https://via.placeholder.com/80x80/1e40af/ffffff?text=Icon" alt="Current service 1 icon">
-                    <span>Current: Strategy Icon</span>
-                </div>
+                <label>Contact Subtitle</label>
+                <textarea id="contact-subtitle" onchange="updatePreview()">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" id="contact-address" value="123 Business Street, Suite 100 New York, NY 10001" onchange="updatePreview()">
+            </div>
+            
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="contact-email" value="hello@company.com" onchange="updatePreview()">
+            </div>
+            
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" id="contact-phone" value="+1 (555) 123-4567" onchange="updatePreview()">
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-primary" onclick="saveChanges()">Save Changes</button>
+                <button class="btn btn-secondary" onclick="resetToDefault()">Reset to Default</button>
+                <button class="btn btn-success" onclick="exportContent()">Export Content</button>
             </div>
         </div>
-        
-        <!-- Action Buttons -->
-        <div class="btn-group">
-            <button class="btn btn-primary" onclick="previewChanges()">Preview Changes</button>
-            <button class="btn btn-success" onclick="saveChanges()">Save & Push to GitHub</button>
-            <button class="btn btn-secondary" onclick="resetToDefault()">Reset to Default</button>
-        </div>
-    </div>
-    
-    <!-- Preview Panel -->
-    <div class="preview-panel">
-        <h3 style="font-family: 'Playfair Display', serif; color: #1e293b; margin-bottom: 1rem;">Live Preview</h3>
-        <div class="preview-frame" id="preview-frame">
-            <iframe src="/home-template-demo.html" width="100%" height="100%" frameborder="0"></iframe>
+
+        <!-- Preview Panel -->
+        <div class="preview-panel">
+            <h2 class="section-title">Live Preview</h2>
+            <div id="preview-container">
+                <!-- Preview content will be inserted here -->
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-// Global variables
-let currentData = {};
-let originalData = {};
-
-// Initialize the admin panel
+// Initialize preview on page load
 document.addEventListener('DOMContentLoaded', function() {
-    loadCurrentData();
-    setupEventListeners();
+    updatePreview();
 });
 
-// Load current data from the home template
-function loadCurrentData() {
-    // This would typically fetch from the actual template file
-    // For now, we'll use the default values
-    currentData = {
-        hero: {
-            title: "Transform Your Business with Innovative Solutions",
-            subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            btnPrimary: "Explore Services",
-            btnSecondary: "Get Started"
-        },
-        services: {
-            title: "What We Offer",
-            subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            service1: {
-                title: "Strategic Planning",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
-            },
-            service2: {
-                title: "Digital Transformation",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
-            },
-            service3: {
-                title: "Analytics & Insights",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
-            },
-            service4: {
-                title: "24/7 Support",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
-            }
-        },
-        contact: {
-            title: "Get In Touch",
-            subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            address: "123 Business Street, Suite 100, New York, NY 10001",
-            email: "hello@company.com",
-            phone: "+1 (555) 123-4567"
-        }
-    };
-    
-    originalData = JSON.parse(JSON.stringify(currentData));
-}
-
-// Setup event listeners for real-time updates
-function setupEventListeners() {
-    const inputs = document.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('input', function() {
-            updatePreview();
-        });
-    });
-    
-    // File upload listeners
-    document.getElementById('hero-image-file').addEventListener('change', handleImageUpload);
-    document.getElementById('service1-icon-file').addEventListener('change', handleImageUpload);
-}
-
-// Handle image uploads
-async function handleImageUpload(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const formData = new FormData();
-        formData.append('image', file);
-        
-        try {
-            showStatus('Uploading image...', 'info');
-            
-            const response = await fetch('/api/upload-image', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                const imageId = event.target.id.replace('-file', '');
-                const currentImage = document.querySelector(`#${imageId}`).parentElement.querySelector('.current-image img');
-                currentImage.src = result.imageUrl;
-                
-                // Update template with new image
-                await updateImageInTemplate(imageId, result.imageUrl);
-                
-                showStatus('Image uploaded and template updated successfully!', 'success');
-            } else {
-                showStatus('Error uploading image: ' + result.error, 'error');
-            }
-        } catch (error) {
-            showStatus('Error uploading image: ' + error.message, 'error');
-        }
-    }
-}
-
-// Update image in template
-async function updateImageInTemplate(imageType, imageUrl) {
-    try {
-        const response = await fetch('/api/update-image', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                imageType: imageType,
-                imageUrl: imageUrl,
-                altText: `${imageType} image`
-            })
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            updatePreview();
-        } else {
-            showStatus('Error updating template: ' + result.error, 'error');
-        }
-    } catch (error) {
-        showStatus('Error updating template: ' + error.message, 'error');
-    }
-}
-
-// Update preview in real-time
 function updatePreview() {
-    const previewFrame = document.querySelector('#preview-frame iframe');
-    if (previewFrame && previewFrame.contentWindow) {
-        // Send message to iframe to update content
-        previewFrame.contentWindow.postMessage({
-            type: 'UPDATE_CONTENT',
-            data: getFormData()
-        }, '*');
+    const container = document.getElementById('preview-container');
+    
+    // Get all form values
+    const heroTitle = document.getElementById('hero-title').value;
+    const heroSubtitle = document.getElementById('hero-subtitle').value;
+    const heroAlt = document.getElementById('hero-alt').value;
+    const servicesTitle = document.getElementById('services-title').value;
+    const servicesSubtitle = document.getElementById('services-subtitle').value;
+    const service1Title = document.getElementById('service1-title').value;
+    const service1Desc = document.getElementById('service1-desc').value;
+    const service2Title = document.getElementById('service2-title').value;
+    const service2Desc = document.getElementById('service2-desc').value;
+    const service3Title = document.getElementById('service3-title').value;
+    const service3Desc = document.getElementById('service3-desc').value;
+    const service4Title = document.getElementById('service4-title').value;
+    const service4Desc = document.getElementById('service4-desc').value;
+    const contactTitle = document.getElementById('contact-title').value;
+    const contactSubtitle = document.getElementById('contact-subtitle').value;
+    const contactAddress = document.getElementById('contact-address').value;
+    const contactEmail = document.getElementById('contact-email').value;
+    const contactPhone = document.getElementById('contact-phone').value;
+    
+    // Get hero image
+    const heroImage = document.getElementById('hero-image') || 
+                     document.querySelector('img[src*="placeholder"]');
+    const heroSrc = heroImage ? heroImage.src : 'https://via.placeholder.com/600x400/2563eb/ffffff?text=Hero+Image';
+    
+    container.innerHTML = `
+        <!-- Hero Section -->
+        <section class="hero-section" style="margin-bottom: 2rem;">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">${heroTitle}</h1>
+                    <p class="hero-subtitle">${heroSubtitle}</p>
+                    <div class="hero-buttons">
+                        <a href="#services" class="btn btn-primary">Explore Services</a>
+                        <a href="#contact" class="btn btn-secondary">Get Started</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="${heroSrc}" alt="${heroAlt}" id="hero-image" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services-section" style="margin-bottom: 2rem;">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">${servicesTitle}</h2>
+                    <p class="section-subtitle">${servicesSubtitle}</p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <img src="https://via.placeholder.com/80x80/1e40af/ffffff?text=Icon" alt="Strategy planning icon" width="80" height="80">
+                        </div>
+                        <h3 class="service-title">${service1Title}</h3>
+                        <p class="service-description">${service1Desc}</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <img src="https://via.placeholder.com/80x80/7c3aed/ffffff?text=Icon" alt="Digital transformation icon" width="80" height="80">
+                        </div>
+                        <h3 class="service-title">${service2Title}</h3>
+                        <p class="service-description">${service2Desc}</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <img src="https://via.placeholder.com/80x80/dc2626/ffffff?text=Icon" alt="Analytics and insights icon" width="80" height="80">
+                        </div>
+                        <h3 class="service-title">${service3Title}</h3>
+                        <p class="service-description">${service3Desc}</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <img src="https://via.placeholder.com/80x80/059669/ffffff?text=Icon" alt="Customer support icon" width="80" height="80">
+                        </div>
+                        <h3 class="service-title">${service4Title}</h3>
+                        <p class="service-description">${service4Desc}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h2 class="contact-title">${contactTitle}</h2>
+                        <p class="contact-subtitle">${contactSubtitle}</p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <img src="https://via.placeholder.com/24x24/6b7280/ffffff?text=📍" alt="Location icon" width="24" height="24">
+                                <span>${contactAddress}</span>
+                            </div>
+                            <div class="contact-item">
+                                <img src="https://via.placeholder.com/24x24/6b7280/ffffff?text=📧" alt="Email icon" width="24" height="24">
+                                <span>${contactEmail}</span>
+                            </div>
+                            <div class="contact-item">
+                                <img src="https://via.placeholder.com/24x24/6b7280/ffffff?text=📞" alt="Phone icon" width="24" height="24">
+                                <span>${contactPhone}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <form class="contact-form-container">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="5" placeholder="Tell us more about your project..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+function handleImageUpload(input, targetId) {
+    const file = input.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.getElementById(targetId);
+            if (img) {
+                img.src = e.target.result;
+            }
+            updatePreview();
+        };
+        reader.readAsDataURL(file);
     }
 }
 
-// Get form data
-function getFormData() {
-    return {
+function updateImageSize(targetId) {
+    const width = document.getElementById('hero-width').value;
+    const height = document.getElementById('hero-height').value;
+    const img = document.getElementById(targetId);
+    if (img) {
+        img.style.width = width + 'px';
+        img.style.height = height + 'px';
+    }
+}
+
+function saveChanges() {
+    // Collect all form data
+    const formData = {
         hero: {
             title: document.getElementById('hero-title').value,
             subtitle: document.getElementById('hero-subtitle').value,
-            btnPrimary: document.getElementById('hero-btn-primary').value,
-            btnSecondary: document.getElementById('hero-btn-secondary').value
+            alt: document.getElementById('hero-alt').value,
+            image: document.getElementById('hero-image')?.src || ''
         },
         services: {
             title: document.getElementById('services-title').value,
             subtitle: document.getElementById('services-subtitle').value,
-            service1: {
-                title: document.getElementById('service1-title').value,
-                description: document.getElementById('service1-description').value
-            },
-            service2: {
-                title: document.getElementById('service2-title').value,
-                description: document.getElementById('service2-description').value
-            },
-            service3: {
-                title: document.getElementById('service3-title').value,
-                description: document.getElementById('service3-description').value
-            },
-            service4: {
-                title: document.getElementById('service4-title').value,
-                description: document.getElementById('service4-description').value
-            }
+            items: [
+                {
+                    title: document.getElementById('service1-title').value,
+                    description: document.getElementById('service1-desc').value
+                },
+                {
+                    title: document.getElementById('service2-title').value,
+                    description: document.getElementById('service2-desc').value
+                },
+                {
+                    title: document.getElementById('service3-title').value,
+                    description: document.getElementById('service3-desc').value
+                },
+                {
+                    title: document.getElementById('service4-title').value,
+                    description: document.getElementById('service4-desc').value
+                }
+            ]
         },
         contact: {
             title: document.getElementById('contact-title').value,
@@ -560,85 +611,132 @@ function getFormData() {
             phone: document.getElementById('contact-phone').value
         }
     };
-}
-
-// Preview changes
-function previewChanges() {
-    updatePreview();
-    showStatus('Preview updated!', 'info');
-}
-
-// Save changes and push to GitHub
-async function saveChanges() {
-    const formData = getFormData();
     
-    // Show loading state
-    showStatus('Saving changes...', 'info');
+    // Save to localStorage for persistence
+    localStorage.setItem('homeTemplateData', JSON.stringify(formData));
     
-    try {
-        const response = await fetch('/api/update-template', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ data: formData })
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            showStatus('Changes saved and pushed to GitHub successfully!', 'success');
-            currentData = formData;
-            // Refresh preview
-            updatePreview();
-        } else {
-            showStatus('Error: ' + result.error, 'error');
-        }
-    } catch (error) {
-        showStatus('Error saving changes: ' + error.message, 'error');
-    }
+    alert('Changes saved! (Note: This saves to browser storage. For permanent changes, you\'ll need to update the actual template files.)');
 }
 
-// Reset to default values
 function resetToDefault() {
-    if (confirm('Are you sure you want to reset all changes?')) {
-        // Reset form fields to original values
-        document.getElementById('hero-title').value = originalData.hero.title;
-        document.getElementById('hero-subtitle').value = originalData.hero.subtitle;
-        document.getElementById('hero-btn-primary').value = originalData.hero.btnPrimary;
-        document.getElementById('hero-btn-secondary').value = originalData.hero.btnSecondary;
+    if (confirm('Are you sure you want to reset all changes to default values?')) {
+        // Reset all form fields to default values
+        document.getElementById('hero-title').value = 'Transform Your Business with Innovative Solutions';
+        document.getElementById('hero-subtitle').value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.';
+        document.getElementById('hero-alt').value = 'Business transformation illustration showing growth and innovation';
+        document.getElementById('services-title').value = 'What We Offer';
+        document.getElementById('services-subtitle').value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+        document.getElementById('service1-title').value = 'Strategic Planning';
+        document.getElementById('service1-desc').value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.';
+        document.getElementById('service2-title').value = 'Digital Transformation';
+        document.getElementById('service2-desc').value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.';
+        document.getElementById('service3-title').value = 'Analytics & Insights';
+        document.getElementById('service3-desc').value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.';
+        document.getElementById('service4-title').value = '24/7 Support';
+        document.getElementById('service4-desc').value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.';
+        document.getElementById('contact-title').value = 'Get In Touch';
+        document.getElementById('contact-subtitle').value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.';
+        document.getElementById('contact-address').value = '123 Business Street, Suite 100 New York, NY 10001';
+        document.getElementById('contact-email').value = 'hello@company.com';
+        document.getElementById('contact-phone').value = '+1 (555) 123-4567';
         
-        document.getElementById('services-title').value = originalData.services.title;
-        document.getElementById('services-subtitle').value = originalData.services.subtitle;
-        document.getElementById('service1-title').value = originalData.services.service1.title;
-        document.getElementById('service1-description').value = originalData.services.service1.description;
-        document.getElementById('service2-title').value = originalData.services.service2.title;
-        document.getElementById('service2-description').value = originalData.services.service2.description;
-        document.getElementById('service3-title').value = originalData.services.service3.title;
-        document.getElementById('service3-description').value = originalData.services.service3.description;
-        document.getElementById('service4-title').value = originalData.services.service4.title;
-        document.getElementById('service4-description').value = originalData.services.service4.description;
-        
-        document.getElementById('contact-title').value = originalData.contact.title;
-        document.getElementById('contact-subtitle').value = originalData.contact.subtitle;
-        document.getElementById('contact-address').value = originalData.contact.address;
-        document.getElementById('contact-email').value = originalData.contact.email;
-        document.getElementById('contact-phone').value = originalData.contact.phone;
+        // Reset image
+        const heroImage = document.getElementById('hero-image');
+        if (heroImage) {
+            heroImage.src = 'https://via.placeholder.com/600x400/2563eb/ffffff?text=Hero+Image';
+        }
         
         updatePreview();
-        showStatus('Reset to default values', 'info');
+        localStorage.removeItem('homeTemplateData');
     }
 }
 
-// Show status message
-function showStatus(message, type) {
-    const statusDiv = document.getElementById('status-message');
-    statusDiv.className = `status-message status-${type}`;
-    statusDiv.textContent = message;
+function exportContent() {
+    const formData = {
+        hero: {
+            title: document.getElementById('hero-title').value,
+            subtitle: document.getElementById('hero-subtitle').value,
+            alt: document.getElementById('hero-alt').value
+        },
+        services: {
+            title: document.getElementById('services-title').value,
+            subtitle: document.getElementById('services-subtitle').value,
+            items: [
+                {
+                    title: document.getElementById('service1-title').value,
+                    description: document.getElementById('service1-desc').value
+                },
+                {
+                    title: document.getElementById('service2-title').value,
+                    description: document.getElementById('service2-desc').value
+                },
+                {
+                    title: document.getElementById('service3-title').value,
+                    description: document.getElementById('service3-desc').value
+                },
+                {
+                    title: document.getElementById('service4-title').value,
+                    description: document.getElementById('service4-desc').value
+                }
+            ]
+        },
+        contact: {
+            title: document.getElementById('contact-title').value,
+            subtitle: document.getElementById('contact-subtitle').value,
+            address: document.getElementById('contact-address').value,
+            email: document.getElementById('contact-email').value,
+            phone: document.getElementById('contact-phone').value
+        }
+    };
     
-    setTimeout(() => {
-        statusDiv.textContent = '';
-        statusDiv.className = '';
-    }, 5000);
+    const dataStr = JSON.stringify(formData, null, 2);
+    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'home-template-content.json';
+    link.click();
+    URL.revokeObjectURL(url);
 }
+
+// Load saved data on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const savedData = localStorage.getItem('homeTemplateData');
+    if (savedData) {
+        const data = JSON.parse(savedData);
+        
+        // Restore form values
+        if (data.hero) {
+            document.getElementById('hero-title').value = data.hero.title || '';
+            document.getElementById('hero-subtitle').value = data.hero.subtitle || '';
+            document.getElementById('hero-alt').value = data.hero.alt || '';
+        }
+        
+        if (data.services) {
+            document.getElementById('services-title').value = data.services.title || '';
+            document.getElementById('services-subtitle').value = data.services.subtitle || '';
+            
+            if (data.services.items && data.services.items.length >= 4) {
+                document.getElementById('service1-title').value = data.services.items[0].title || '';
+                document.getElementById('service1-desc').value = data.services.items[0].description || '';
+                document.getElementById('service2-title').value = data.services.items[1].title || '';
+                document.getElementById('service2-desc').value = data.services.items[1].description || '';
+                document.getElementById('service3-title').value = data.services.items[2].title || '';
+                document.getElementById('service3-desc').value = data.services.items[2].description || '';
+                document.getElementById('service4-title').value = data.services.items[3].title || '';
+                document.getElementById('service4-desc').value = data.services.items[3].description || '';
+            }
+        }
+        
+        if (data.contact) {
+            document.getElementById('contact-title').value = data.contact.title || '';
+            document.getElementById('contact-subtitle').value = data.contact.subtitle || '';
+            document.getElementById('contact-address').value = data.contact.address || '';
+            document.getElementById('contact-email').value = data.contact.email || '';
+            document.getElementById('contact-phone').value = data.contact.phone || '';
+        }
+        
+        updatePreview();
+    }
+});
 </script> 
