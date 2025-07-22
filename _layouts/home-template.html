@@ -5,15 +5,15 @@ layout: default
 <section class="hero-section">
     <div class="hero-container">
         <div class="hero-content">
-            <h1 class="hero-title">Transform Your Business with Innovative Solutions</h1>
-            <p class="hero-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+            <h1 class="hero-title">{{ site.data.template-content.hero.title }}</h1>
+            <p class="hero-subtitle">{{ site.data.template-content.hero.subtitle }}</p>
             <div class="hero-buttons">
-                <a href="#services" class="btn btn-primary">Explore Services</a>
-                <a href="#contact" class="btn btn-secondary">Get Started</a>
+                <a href="{{ site.data.template-content.hero.buttons.primary.href }}" class="btn btn-primary">{{ site.data.template-content.hero.buttons.primary.text }}</a>
+                <a href="{{ site.data.template-content.hero.buttons.secondary.href }}" class="btn btn-secondary">{{ site.data.template-content.hero.buttons.secondary.text }}</a>
             </div>
         </div>
         <div class="hero-image">
-            <img src="https://via.placeholder.com/600x400/2563eb/ffffff?text=Hero+Image" alt="Business transformation illustration showing growth and innovation" width="600" height="400">
+            <img src="{{ site.data.template-content.hero.image.src }}" alt="{{ site.data.template-content.hero.image.alt }}" width="{{ site.data.template-content.hero.image.width }}" height="{{ site.data.template-content.hero.image.height }}">
         </div>
     </div>
 </section>
@@ -22,42 +22,20 @@ layout: default
 <section id="services" class="services-section">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">What We Offer</h2>
-            <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h2 class="section-title">{{ site.data.template-content.services.title }}</h2>
+            <p class="section-subtitle">{{ site.data.template-content.services.subtitle }}</p>
         </div>
         
         <div class="services-grid">
+            {% for service in site.data.template-content.services.items %}
             <div class="service-card">
                 <div class="service-icon">
-                    <img src="https://via.placeholder.com/80x80/1e40af/ffffff?text=Icon" alt="Strategy planning icon" width="80" height="80">
+                    <img src="{{ service.icon.src }}" alt="{{ service.icon.alt }}" width="{{ service.icon.width }}" height="{{ service.icon.height }}">
                 </div>
-                <h3 class="service-title">Strategic Planning</h3>
-                <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                <h3 class="service-title">{{ service.title }}</h3>
+                <p class="service-description">{{ service.description }}</p>
             </div>
-            
-            <div class="service-card">
-                <div class="service-icon">
-                    <img src="https://via.placeholder.com/80x80/7c3aed/ffffff?text=Icon" alt="Digital transformation icon" width="80" height="80">
-                </div>
-                <h3 class="service-title">Digital Transformation</h3>
-                <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">
-                    <img src="https://via.placeholder.com/80x80/dc2626/ffffff?text=Icon" alt="Analytics and insights icon" width="80" height="80">
-                </div>
-                <h3 class="service-title">Analytics & Insights</h3>
-                <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">
-                    <img src="https://via.placeholder.com/80x80/059669/ffffff?text=Icon" alt="Customer support icon" width="80" height="80">
-                </div>
-                <h3 class="service-title">24/7 Support</h3>
-                <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -67,21 +45,21 @@ layout: default
     <div class="container">
         <div class="contact-content">
             <div class="contact-info">
-                <h2 class="contact-title">Get In Touch</h2>
-                <p class="contact-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+                <h2 class="contact-title">{{ site.data.template-content.contact.title }}</h2>
+                <p class="contact-subtitle">{{ site.data.template-content.contact.subtitle }}</p>
                 
                 <div class="contact-details">
                     <div class="contact-item">
-                        <img src="https://via.placeholder.com/24x24/6b7280/ffffff?text=📍" alt="Location icon" width="24" height="24">
-                        <span>123 Business Street, Suite 100<br>New York, NY 10001</span>
+                        <img src="{{ site.data.template-content.contact.icons.location.src }}" alt="{{ site.data.template-content.contact.icons.location.alt }}" width="24" height="24">
+                        <span>{{ site.data.template-content.contact.details.address }}</span>
                     </div>
                     <div class="contact-item">
-                        <img src="https://via.placeholder.com/24x24/6b7280/ffffff?text=📧" alt="Email icon" width="24" height="24">
-                        <span>hello@company.com</span>
+                        <img src="{{ site.data.template-content.contact.icons.email.src }}" alt="{{ site.data.template-content.contact.icons.email.alt }}" width="24" height="24">
+                        <span>{{ site.data.template-content.contact.details.email }}</span>
                     </div>
                     <div class="contact-item">
-                        <img src="https://via.placeholder.com/24x24/6b7280/ffffff?text=📞" alt="Phone icon" width="24" height="24">
-                        <span>+1 (555) 123-4567</span>
+                        <img src="{{ site.data.template-content.contact.icons.phone.src }}" alt="{{ site.data.template-content.contact.icons.phone.alt }}" width="24" height="24">
+                        <span>{{ site.data.template-content.contact.details.phone }}</span>
                     </div>
                 </div>
             </div>

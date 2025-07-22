@@ -141,6 +141,7 @@ tags: [tag1, tag2, tag3]
 - **Gradient Backgrounds:** Purple-to-blue gradients for visual appeal
 - **Hover Effects:** Interactive elements with smooth transitions
 - **Multi-language Support:** Posts can specify language via front matter
+- **Admin Panel:** Live content editing system with YAML configuration
 
 ### File Preservation
 
@@ -155,6 +156,32 @@ tags: [tag1, tag2, tag3]
 3. **Custom Domain:** The site uses `betashorts.com` - ensure DNS is properly configured
 4. **Jekyll Dependencies:** Requires Ruby and Jekyll for local development
 5. **Content Management:** New posts should follow the existing naming convention and front matter structure
+
+## 🛠️ Admin Panel
+
+### Content Management System
+
+The site includes a comprehensive admin panel for managing home template content:
+
+- **Access:** `/admin.html` or click "Admin" in the navigation
+- **Features:** Live preview, content editing, image uploads, YAML export
+- **Configuration:** Content is stored in `_data/template-content.yml`
+
+### How the Admin System Works
+
+1. **Content Storage:** All template content is stored in `_data/template-content.yml`
+2. **Dynamic Loading:** The admin panel reads from this YAML file on load
+3. **Live Preview:** Changes are previewed in real-time
+4. **Export System:** Modified content can be exported as a new YAML file
+5. **Template Integration:** The home template reads from the same YAML file
+
+### Workflow for Content Updates
+
+1. Edit content in the admin panel
+2. Preview changes in real-time
+3. Save changes to download updated YAML file
+4. Replace `_data/template-content.yml` with the downloaded file
+5. Rebuild the site to see changes live
 
 ## 📞 Support
 

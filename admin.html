@@ -403,8 +403,87 @@ meta: '<meta name="description" content="Admin panel for editing home template c
 <script>
 // Initialize preview on page load
 document.addEventListener('DOMContentLoaded', function() {
+    loadContentFromYaml();
     updatePreview();
 });
+
+// Load content from the YAML configuration file
+async function loadContentFromYaml() {
+    try {
+        const response = await fetch('/_data/template-content.yml');
+        if (response.ok) {
+            const yamlText = await response.text();
+            const content = parseYaml(yamlText);
+            populateFormWithContent(content);
+        } else {
+            console.log('Could not load YAML file, using default values');
+            // Use default values if YAML file is not accessible
+        }
+    } catch (error) {
+        console.log('Error loading YAML file:', error);
+        // Use default values if there's an error
+    }
+}
+
+// Simple YAML parser for basic key-value pairs
+function parseYaml(yamlText) {
+    const content = {};
+    const lines = yamlText.split('\n');
+    let currentSection = null;
+    let currentSubsection = null;
+    
+    for (let line of lines) {
+        line = line.trim();
+        if (line.startsWith('#') || line === '') continue;
+        
+        if (line.endsWith(':')) {
+            const key = line.slice(0, -1).trim();
+            if (!currentSection) {
+                currentSection = key;
+                content[currentSection] = {};
+            } else if (!currentSubsection) {
+                currentSubsection = key;
+                content[currentSection][currentSubsection] = {};
+            }
+        } else if (line.includes(':') && !line.startsWith('-')) {
+            const [key, value] = line.split(':', 2);
+            const cleanKey = key.trim();
+            const cleanValue = value.trim().replace(/^["']|["']$/g, '');
+            
+            if (currentSubsection) {
+                content[currentSection][currentSubsection][cleanKey] = cleanValue;
+            } else if (currentSection) {
+                content[currentSection][cleanKey] = cleanValue;
+            }
+        }
+    }
+    
+    return content;
+}
+
+// Populate form fields with content from YAML
+function populateFormWithContent(content) {
+    if (content.hero) {
+        if (content.hero.title) document.getElementById('hero-title').value = content.hero.title;
+        if (content.hero.subtitle) document.getElementById('hero-subtitle').value = content.hero.subtitle;
+        if (content.hero.image && content.hero.image.alt) document.getElementById('hero-alt').value = content.hero.image.alt;
+        if (content.hero.image && content.hero.image.width) document.getElementById('hero-width').value = content.hero.image.width;
+        if (content.hero.image && content.hero.image.height) document.getElementById('hero-height').value = content.hero.image.height;
+    }
+    
+    if (content.services) {
+        if (content.services.title) document.getElementById('services-title').value = content.services.title;
+        if (content.services.subtitle) document.getElementById('services-subtitle').value = content.services.subtitle;
+    }
+    
+    if (content.contact) {
+        if (content.contact.title) document.getElementById('contact-title').value = content.contact.title;
+        if (content.contact.subtitle) document.getElementById('contact-subtitle').value = content.contact.subtitle;
+        if (content.contact.details && content.contact.details.address) document.getElementById('contact-address').value = content.contact.details.address;
+        if (content.contact.details && content.contact.details.email) document.getElementById('contact-email').value = content.contact.details.email;
+        if (content.contact.details && content.contact.details.phone) document.getElementById('contact-phone').value = content.contact.details.phone;
+    }
+}
 
 function updatePreview() {
     const container = document.getElementById('preview-container');
@@ -615,7 +694,94 @@ function saveChanges() {
     // Save to localStorage for persistence
     localStorage.setItem('homeTemplateData', JSON.stringify(formData));
     
-    alert('Changes saved! (Note: This saves to browser storage. For permanent changes, you\'ll need to update the actual template files.)');
+    // Generate YAML content
+    const yamlContent = generateYamlContent(formData);
+    
+    // Create download link for the updated YAML file
+    const dataBlob = new Blob([yamlContent], {type: 'text/yaml'});
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'template-content.yml';
+    link.click();
+    URL.revokeObjectURL(url);
+    
+    alert('Changes saved! A new YAML file has been downloaded. Replace the contents of _data/template-content.yml with this file to apply your changes permanently.');
+}
+
+function generateYamlContent(formData) {
+    let yaml = `# Home Template Content Configuration
+# This file stores all content for the home template
+# The admin panel reads from and writes to this file
+
+hero:
+  title: "${formData.hero.title}"
+  subtitle: "${formData.hero.subtitle}"
+  image:
+    src: "${formData.hero.image}"
+    alt: "${formData.hero.alt}"
+    width: ${document.getElementById('hero-width').value}
+    height: ${document.getElementById('hero-height').value}
+  buttons:
+    primary:
+      text: "Explore Services"
+      href: "#services"
+    secondary:
+      text: "Get Started"
+      href: "#contact"
+
+services:
+  title: "${formData.services.title}"
+  subtitle: "${formData.services.subtitle}"
+  items:
+    - title: "${formData.services.items[0].title}"
+      description: "${formData.services.items[0].description}"
+      icon:
+        src: "https://via.placeholder.com/80x80/1e40af/ffffff?text=Icon"
+        alt: "Strategy planning icon"
+        width: 80
+        height: 80
+    - title: "${formData.services.items[1].title}"
+      description: "${formData.services.items[1].description}"
+      icon:
+        src: "https://via.placeholder.com/80x80/7c3aed/ffffff?text=Icon"
+        alt: "Digital transformation icon"
+        width: 80
+        height: 80
+    - title: "${formData.services.items[2].title}"
+      description: "${formData.services.items[2].description}"
+      icon:
+        src: "https://via.placeholder.com/80x80/dc2626/ffffff?text=Icon"
+        alt: "Analytics and insights icon"
+        width: 80
+        height: 80
+    - title: "${formData.services.items[3].title}"
+      description: "${formData.services.items[3].description}"
+      icon:
+        src: "https://via.placeholder.com/80x80/059669/ffffff?text=Icon"
+        alt: "Customer support icon"
+        width: 80
+        height: 80
+
+contact:
+  title: "${formData.contact.title}"
+  subtitle: "${formData.contact.subtitle}"
+  details:
+    address: "${formData.contact.address}"
+    email: "${formData.contact.email}"
+    phone: "${formData.contact.phone}"
+  icons:
+    location:
+      src: "https://via.placeholder.com/24x24/6b7280/ffffff?text=📍"
+      alt: "Location icon"
+    email:
+      src: "https://via.placeholder.com/24x24/6b7280/ffffff?text=📧"
+      alt: "Email icon"
+    phone:
+      src: "https://via.placeholder.com/24x24/6b7280/ffffff?text=📞"
+      alt: "Phone icon"`;
+    
+    return yaml;
 }
 
 function resetToDefault() {
