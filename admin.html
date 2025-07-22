@@ -1,0 +1,644 @@
+---
+layout: default
+title: "Admin Panel - Beta Shorts"
+meta: '<meta name="description" content="Admin panel for managing site content and images.">'
+---
+
+<style>
+/* Admin Panel Styles */
+.admin-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+.admin-panel {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.preview-panel {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.admin-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.admin-section h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3b82f6;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: #6b7280;
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background: #4b5563;
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background: #10b981;
+    color: #ffffff;
+}
+
+.btn-success:hover {
+    background: #059669;
+    transform: translateY(-1px);
+}
+
+.preview-frame {
+    width: 100%;
+    height: 600px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.image-upload {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    background: #f9fafb;
+    transition: border-color 0.3s ease;
+}
+
+.image-upload:hover {
+    border-color: #3b82f6;
+}
+
+.image-upload input[type="file"] {
+    display: none;
+}
+
+.upload-label {
+    cursor: pointer;
+    color: #6b7280;
+    font-family: 'Inter', sans-serif;
+}
+
+.upload-label:hover {
+    color: #3b82f6;
+}
+
+.current-image {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f3f4f6;
+    border-radius: 6px;
+}
+
+.current-image img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 4px;
+    margin-right: 1rem;
+}
+
+.status-message {
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+}
+
+.status-success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.status-error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+.status-info {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+}
+
+@media (max-width: 768px) {
+    .admin-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .admin-panel,
+    .preview-panel {
+        max-height: none;
+    }
+}
+</style>
+
+<div class="admin-container">
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <h2 style="font-family: 'Playfair Display', serif; color: #1e293b; margin-bottom: 2rem;">Admin Panel</h2>
+        
+        <div id="status-message"></div>
+        
+        <!-- Hero Section -->
+        <div class="admin-section">
+            <h3>Hero Section</h3>
+            <div class="form-group">
+                <label for="hero-title">Hero Title</label>
+                <input type="text" id="hero-title" value="Transform Your Business with Innovative Solutions">
+            </div>
+            <div class="form-group">
+                <label for="hero-subtitle">Hero Subtitle</label>
+                <textarea id="hero-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</textarea>
+            </div>
+            <div class="form-group">
+                <label for="hero-btn-primary">Primary Button Text</label>
+                <input type="text" id="hero-btn-primary" value="Explore Services">
+            </div>
+            <div class="form-group">
+                <label for="hero-btn-secondary">Secondary Button Text</label>
+                <input type="text" id="hero-btn-secondary" value="Get Started">
+            </div>
+        </div>
+        
+        <!-- Services Section -->
+        <div class="admin-section">
+            <h3>Services Section</h3>
+            <div class="form-group">
+                <label for="services-title">Section Title</label>
+                <input type="text" id="services-title" value="What We Offer">
+            </div>
+            <div class="form-group">
+                <label for="services-subtitle">Section Subtitle</label>
+                <textarea id="services-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</textarea>
+            </div>
+            
+            <!-- Service 1 -->
+            <div class="form-group">
+                <label for="service1-title">Service 1 Title</label>
+                <input type="text" id="service1-title" value="Strategic Planning">
+            </div>
+            <div class="form-group">
+                <label for="service1-description">Service 1 Description</label>
+                <textarea id="service1-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</textarea>
+            </div>
+            
+            <!-- Service 2 -->
+            <div class="form-group">
+                <label for="service2-title">Service 2 Title</label>
+                <input type="text" id="service2-title" value="Digital Transformation">
+            </div>
+            <div class="form-group">
+                <label for="service2-description">Service 2 Description</label>
+                <textarea id="service2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</textarea>
+            </div>
+            
+            <!-- Service 3 -->
+            <div class="form-group">
+                <label for="service3-title">Service 3 Title</label>
+                <input type="text" id="service3-title" value="Analytics & Insights">
+            </div>
+            <div class="form-group">
+                <label for="service3-description">Service 3 Description</label>
+                <textarea id="service3-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</textarea>
+            </div>
+            
+            <!-- Service 4 -->
+            <div class="form-group">
+                <label for="service4-title">Service 4 Title</label>
+                <input type="text" id="service4-title" value="24/7 Support">
+            </div>
+            <div class="form-group">
+                <label for="service4-description">Service 4 Description</label>
+                <textarea id="service4-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</textarea>
+            </div>
+        </div>
+        
+        <!-- Contact Section -->
+        <div class="admin-section">
+            <h3>Contact Section</h3>
+            <div class="form-group">
+                <label for="contact-title">Contact Title</label>
+                <input type="text" id="contact-title" value="Get In Touch">
+            </div>
+            <div class="form-group">
+                <label for="contact-subtitle">Contact Subtitle</label>
+                <textarea id="contact-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</textarea>
+            </div>
+            <div class="form-group">
+                <label for="contact-address">Address</label>
+                <input type="text" id="contact-address" value="123 Business Street, Suite 100, New York, NY 10001">
+            </div>
+            <div class="form-group">
+                <label for="contact-email">Email</label>
+                <input type="email" id="contact-email" value="hello@company.com">
+            </div>
+            <div class="form-group">
+                <label for="contact-phone">Phone</label>
+                <input type="text" id="contact-phone" value="+1 (555) 123-4567">
+            </div>
+        </div>
+        
+        <!-- Image Management -->
+        <div class="admin-section">
+            <h3>Image Management</h3>
+            <div class="form-group">
+                <label for="hero-image">Hero Image</label>
+                <div class="image-upload">
+                    <input type="file" id="hero-image-file" accept="image/*">
+                    <label for="hero-image-file" class="upload-label">
+                        📁 Click to upload new hero image
+                    </label>
+                </div>
+                <div class="current-image">
+                    <img src="https://via.placeholder.com/600x400/2563eb/ffffff?text=Hero+Image" alt="Current hero image">
+                    <span>Current: Hero Image</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="service1-icon">Service 1 Icon</label>
+                <div class="image-upload">
+                    <input type="file" id="service1-icon-file" accept="image/*">
+                    <label for="service1-icon-file" class="upload-label">
+                        📁 Click to upload new icon
+                    </label>
+                </div>
+                <div class="current-image">
+                    <img src="https://via.placeholder.com/80x80/1e40af/ffffff?text=Icon" alt="Current service 1 icon">
+                    <span>Current: Strategy Icon</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="previewChanges()">Preview Changes</button>
+            <button class="btn btn-success" onclick="saveChanges()">Save & Push to GitHub</button>
+            <button class="btn btn-secondary" onclick="resetToDefault()">Reset to Default</button>
+        </div>
+    </div>
+    
+    <!-- Preview Panel -->
+    <div class="preview-panel">
+        <h3 style="font-family: 'Playfair Display', serif; color: #1e293b; margin-bottom: 1rem;">Live Preview</h3>
+        <div class="preview-frame" id="preview-frame">
+            <iframe src="/home-template-demo.html" width="100%" height="100%" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+// Global variables
+let currentData = {};
+let originalData = {};
+
+// Initialize the admin panel
+document.addEventListener('DOMContentLoaded', function() {
+    loadCurrentData();
+    setupEventListeners();
+});
+
+// Load current data from the home template
+function loadCurrentData() {
+    // This would typically fetch from the actual template file
+    // For now, we'll use the default values
+    currentData = {
+        hero: {
+            title: "Transform Your Business with Innovative Solutions",
+            subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            btnPrimary: "Explore Services",
+            btnSecondary: "Get Started"
+        },
+        services: {
+            title: "What We Offer",
+            subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            service1: {
+                title: "Strategic Planning",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+            },
+            service2: {
+                title: "Digital Transformation",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+            },
+            service3: {
+                title: "Analytics & Insights",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+            },
+            service4: {
+                title: "24/7 Support",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+            }
+        },
+        contact: {
+            title: "Get In Touch",
+            subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            address: "123 Business Street, Suite 100, New York, NY 10001",
+            email: "hello@company.com",
+            phone: "+1 (555) 123-4567"
+        }
+    };
+    
+    originalData = JSON.parse(JSON.stringify(currentData));
+}
+
+// Setup event listeners for real-time updates
+function setupEventListeners() {
+    const inputs = document.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('input', function() {
+            updatePreview();
+        });
+    });
+    
+    // File upload listeners
+    document.getElementById('hero-image-file').addEventListener('change', handleImageUpload);
+    document.getElementById('service1-icon-file').addEventListener('change', handleImageUpload);
+}
+
+// Handle image uploads
+async function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const formData = new FormData();
+        formData.append('image', file);
+        
+        try {
+            showStatus('Uploading image...', 'info');
+            
+            const response = await fetch('/api/upload-image', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                const imageId = event.target.id.replace('-file', '');
+                const currentImage = document.querySelector(`#${imageId}`).parentElement.querySelector('.current-image img');
+                currentImage.src = result.imageUrl;
+                
+                // Update template with new image
+                await updateImageInTemplate(imageId, result.imageUrl);
+                
+                showStatus('Image uploaded and template updated successfully!', 'success');
+            } else {
+                showStatus('Error uploading image: ' + result.error, 'error');
+            }
+        } catch (error) {
+            showStatus('Error uploading image: ' + error.message, 'error');
+        }
+    }
+}
+
+// Update image in template
+async function updateImageInTemplate(imageType, imageUrl) {
+    try {
+        const response = await fetch('/api/update-image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                imageType: imageType,
+                imageUrl: imageUrl,
+                altText: `${imageType} image`
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            updatePreview();
+        } else {
+            showStatus('Error updating template: ' + result.error, 'error');
+        }
+    } catch (error) {
+        showStatus('Error updating template: ' + error.message, 'error');
+    }
+}
+
+// Update preview in real-time
+function updatePreview() {
+    const previewFrame = document.querySelector('#preview-frame iframe');
+    if (previewFrame && previewFrame.contentWindow) {
+        // Send message to iframe to update content
+        previewFrame.contentWindow.postMessage({
+            type: 'UPDATE_CONTENT',
+            data: getFormData()
+        }, '*');
+    }
+}
+
+// Get form data
+function getFormData() {
+    return {
+        hero: {
+            title: document.getElementById('hero-title').value,
+            subtitle: document.getElementById('hero-subtitle').value,
+            btnPrimary: document.getElementById('hero-btn-primary').value,
+            btnSecondary: document.getElementById('hero-btn-secondary').value
+        },
+        services: {
+            title: document.getElementById('services-title').value,
+            subtitle: document.getElementById('services-subtitle').value,
+            service1: {
+                title: document.getElementById('service1-title').value,
+                description: document.getElementById('service1-description').value
+            },
+            service2: {
+                title: document.getElementById('service2-title').value,
+                description: document.getElementById('service2-description').value
+            },
+            service3: {
+                title: document.getElementById('service3-title').value,
+                description: document.getElementById('service3-description').value
+            },
+            service4: {
+                title: document.getElementById('service4-title').value,
+                description: document.getElementById('service4-description').value
+            }
+        },
+        contact: {
+            title: document.getElementById('contact-title').value,
+            subtitle: document.getElementById('contact-subtitle').value,
+            address: document.getElementById('contact-address').value,
+            email: document.getElementById('contact-email').value,
+            phone: document.getElementById('contact-phone').value
+        }
+    };
+}
+
+// Preview changes
+function previewChanges() {
+    updatePreview();
+    showStatus('Preview updated!', 'info');
+}
+
+// Save changes and push to GitHub
+async function saveChanges() {
+    const formData = getFormData();
+    
+    // Show loading state
+    showStatus('Saving changes...', 'info');
+    
+    try {
+        const response = await fetch('/api/update-template', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ data: formData })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showStatus('Changes saved and pushed to GitHub successfully!', 'success');
+            currentData = formData;
+            // Refresh preview
+            updatePreview();
+        } else {
+            showStatus('Error: ' + result.error, 'error');
+        }
+    } catch (error) {
+        showStatus('Error saving changes: ' + error.message, 'error');
+    }
+}
+
+// Reset to default values
+function resetToDefault() {
+    if (confirm('Are you sure you want to reset all changes?')) {
+        // Reset form fields to original values
+        document.getElementById('hero-title').value = originalData.hero.title;
+        document.getElementById('hero-subtitle').value = originalData.hero.subtitle;
+        document.getElementById('hero-btn-primary').value = originalData.hero.btnPrimary;
+        document.getElementById('hero-btn-secondary').value = originalData.hero.btnSecondary;
+        
+        document.getElementById('services-title').value = originalData.services.title;
+        document.getElementById('services-subtitle').value = originalData.services.subtitle;
+        document.getElementById('service1-title').value = originalData.services.service1.title;
+        document.getElementById('service1-description').value = originalData.services.service1.description;
+        document.getElementById('service2-title').value = originalData.services.service2.title;
+        document.getElementById('service2-description').value = originalData.services.service2.description;
+        document.getElementById('service3-title').value = originalData.services.service3.title;
+        document.getElementById('service3-description').value = originalData.services.service3.description;
+        document.getElementById('service4-title').value = originalData.services.service4.title;
+        document.getElementById('service4-description').value = originalData.services.service4.description;
+        
+        document.getElementById('contact-title').value = originalData.contact.title;
+        document.getElementById('contact-subtitle').value = originalData.contact.subtitle;
+        document.getElementById('contact-address').value = originalData.contact.address;
+        document.getElementById('contact-email').value = originalData.contact.email;
+        document.getElementById('contact-phone').value = originalData.contact.phone;
+        
+        updatePreview();
+        showStatus('Reset to default values', 'info');
+    }
+}
+
+// Show status message
+function showStatus(message, type) {
+    const statusDiv = document.getElementById('status-message');
+    statusDiv.className = `status-message status-${type}`;
+    statusDiv.textContent = message;
+    
+    setTimeout(() => {
+        statusDiv.textContent = '';
+        statusDiv.className = '';
+    }, 5000);
+}
+</script> 
