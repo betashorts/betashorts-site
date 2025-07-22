@@ -387,6 +387,7 @@ meta: '<meta name="description" content="Admin panel for editing home template c
                 <button class="btn btn-primary" onclick="saveChanges()">Save Changes</button>
                 <button class="btn btn-secondary" onclick="resetToDefault()">Reset to Default</button>
                 <button class="btn btn-success" onclick="exportContent()">Export Content</button>
+                <button class="btn btn-primary" onclick="publishToGitHub()" style="background: #10b981;">🚀 Publish to GitHub</button>
             </div>
         </div>
 
@@ -863,6 +864,97 @@ function exportContent() {
     link.download = 'home-template-content.json';
     link.click();
     URL.revokeObjectURL(url);
+}
+
+// Publish content directly to GitHub
+async function publishToGitHub() {
+    try {
+        // Show loading state
+        const publishBtn = document.querySelector('button[onclick="publishToGitHub()"]');
+        const originalText = publishBtn.innerHTML;
+        publishBtn.innerHTML = '⏳ Publishing...';
+        publishBtn.disabled = true;
+        
+        // Generate YAML content
+        const formData = {
+            hero: {
+                title: document.getElementById('hero-title').value,
+                subtitle: document.getElementById('hero-subtitle').value,
+                alt: document.getElementById('hero-alt').value,
+                image: document.getElementById('hero-image')?.src || ''
+            },
+            services: {
+                title: document.getElementById('services-title').value,
+                subtitle: document.getElementById('services-subtitle').value,
+                items: [
+                    {
+                        title: document.getElementById('service1-title').value,
+                        description: document.getElementById('service1-desc').value
+                    },
+                    {
+                        title: document.getElementById('service2-title').value,
+                        description: document.getElementById('service2-desc').value
+                    },
+                    {
+                        title: document.getElementById('service3-title').value,
+                        description: document.getElementById('service3-desc').value
+                    },
+                    {
+                        title: document.getElementById('service4-title').value,
+                        description: document.getElementById('service4-desc').value
+                    }
+                ]
+            },
+            contact: {
+                title: document.getElementById('contact-title').value,
+                subtitle: document.getElementById('contact-subtitle').value,
+                address: document.getElementById('contact-address').value,
+                email: document.getElementById('contact-email').value,
+                phone: document.getElementById('contact-phone').value
+            }
+        };
+        
+        const yamlContent = generateYamlContent(formData);
+        
+        // Prepare the request payload
+        const payload = {
+            content: yamlContent,
+            message: `Update home template content via admin panel - ${new Date().toLocaleString()}`,
+            secretKey: 'your-secret-key-here' // Must match the one in your Google Apps Script
+        };
+        
+        // Replace this URL with your actual Google Apps Script web app URL
+        const scriptUrl = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+        
+        // Send the request
+        const response = await fetch(scriptUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            alert(`✅ Successfully published to GitHub!\n\nCommit URL: ${result.commitUrl}\n\nYour site will be updated in a few minutes.`);
+            
+            // Save to localStorage as well
+            localStorage.setItem('homeTemplateData', JSON.stringify(formData));
+        } else {
+            throw new Error(result.error || 'Unknown error occurred');
+        }
+        
+    } catch (error) {
+        console.error('Publish error:', error);
+        alert(`❌ Failed to publish: ${error.message}\n\nPlease check your configuration and try again.`);
+    } finally {
+        // Reset button state
+        const publishBtn = document.querySelector('button[onclick="publishToGitHub()"]');
+        publishBtn.innerHTML = originalText;
+        publishBtn.disabled = false;
+    }
 }
 
 // Load saved data on page load
