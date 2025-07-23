@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Apps Script Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            background: #007cba;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #005a87;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Apps Script Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Basic Connection</h2>
+        <p>Test if your Google Apps Script is accessible:</p>
+        <button onclick="testBasicConnection()">Test Connection</button>
+        <div id="connection-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: POST Request</h2>
+        <p>Test if your script accepts POST requests:</p>
+        <button onclick="testPostRequest()">Test POST</button>
+        <div id="post-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: GitHub Integration</h2>
+        <p>Test if your script can access GitHub (this will fail without proper token):</p>
+        <button onclick="testGitHubAccess()">Test GitHub Access</button>
+        <div id="github-result" class="result"></div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUuRud3-KbVuIW2u8RjkE-6ymnGtB48lnlowgL3s4F3ZPmD57UFmKwB4Y6bfI7LMUm8g/exec';
+        
+        function showResult(elementId, message, isSuccess = true) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `result ${isSuccess ? 'success' : 'error'}`;
+        }
+        
+        async function testBasicConnection() {
+            try {
+                showResult('connection-result', 'Testing connection...', true);
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'GET'
+                });
+                
+                if (response.ok) {
+                    showResult('connection-result', '✅ Connection successful!\n\nResponse status: ' + response.status + '\n\nNote: You might see an error about "doGet" function not found, which is expected since we use doPost.', true);
+                } else {
+                    showResult('connection-result', '❌ Connection failed!\n\nStatus: ' + response.status + '\nStatus Text: ' + response.statusText, false);
+                }
+            } catch (error) {
+                showResult('connection-result', '❌ Connection error!\n\nError: ' + error.message, false);
+            }
+        }
+        
+        async function testPostRequest() {
+            try {
+                showResult('post-result', 'Testing POST request...', true);
+                
+                const testData = {
+                    content: '# Test YAML\nhero:\n  title: "Test Title"\n  subtitle: "Test Subtitle"',
+                    message: 'Test commit message',
+                    secretKey: 'betashorts-admin-2025-secure-key'
+                };
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                const result = await response.text();
+                
+                if (response.ok) {
+                    showResult('post-result', '✅ POST request successful!\n\nResponse:\n' + result, true);
+                } else {
+                    showResult('post-result', '❌ POST request failed!\n\nStatus: ' + response.status + '\nResponse:\n' + result, false);
+                }
+            } catch (error) {
+                showResult('post-result', '❌ POST request error!\n\nError: ' + error.message, false);
+            }
+        }
+        
+        async function testGitHubAccess() {
+            try {
+                showResult('github-result', 'Testing GitHub access...\n\nThis will likely fail without a proper GitHub token in your script.', true);
+                
+                const testData = {
+                    content: '# Test YAML\nhero:\n  title: "Test Title"',
+                    message: 'Test GitHub access',
+                    secretKey: 'betashorts-admin-2025-secure-key'
+                };
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                const result = await response.text();
+                
+                if (response.ok) {
+                    showResult('github-result', '✅ GitHub access successful!\n\nResponse:\n' + result, true);
+                } else {
+                    showResult('github-result', '❌ GitHub access failed!\n\nStatus: ' + response.status + '\nResponse:\n' + result + '\n\nThis is expected if your GitHub token is not configured yet.', false);
+                }
+            } catch (error) {
+                showResult('github-result', '❌ GitHub access error!\n\nError: ' + error.message, false);
+            }
+        }
+    </script>
+</body>
+</html> 

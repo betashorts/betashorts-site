@@ -31,18 +31,22 @@ jobs:
         run: |
           curl -X POST "${{ secrets.GOOGLE_APPS_SCRIPT_URL }}" \
             -H "Content-Type: application/json" \
-            -d '{
-              "content": ${{ steps.extract.outputs.content }},
-              "message": "${{ steps.extract.outputs.message }}",
-              "secretKey": "${{ secrets.ADMIN_SECRET_KEY }}"
-            }'
+            -d "{
+              \"content\": \"${{ steps.extract.outputs.content }}\",
+              \"message\": \"${{ steps.extract.outputs.message }}\",
+              \"secretKey\": \"${{ secrets.ADMIN_SECRET_KEY }}\"
+            }"
 
       - name: Close issue on success
         if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           gh issue close ${{ github.event.issue.number }} --comment "✅ Content published successfully! Your changes are now live on the site."
 
       - name: Comment on failure
         if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           gh issue comment ${{ github.event.issue.number }} --body "❌ Failed to publish content. Please check the logs and try again."
