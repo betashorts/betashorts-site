@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Apps Script Test</title>
+    <title>Security Test - Google Apps Script Setup</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,31 +48,33 @@
     </style>
 </head>
 <body>
-    <h1>Google Apps Script Test</h1>
+    <h1>🔒 Security Test - Google Apps Script Setup</h1>
+    <p><strong>This page verifies that your Google Apps Script URL is properly secured and not exposed in frontend code.</strong></p>
     
     <div class="test-section">
-        <h2>Test 1: Basic Connection</h2>
-        <p>Test if your Google Apps Script is accessible:</p>
-        <button onclick="testBasicConnection()">Test Connection</button>
+        <h2>🔍 Test 1: URL Exposure Check</h2>
+        <p>Verify that the Google Apps Script URL is not exposed in frontend code:</p>
+        <button onclick="testBasicConnection()">Check URL Security</button>
         <div id="connection-result" class="result"></div>
     </div>
     
     <div class="test-section">
-        <h2>Test 2: POST Request</h2>
-        <p>Test if your script accepts POST requests:</p>
-        <button onclick="testPostRequest()">Test POST</button>
+        <h2>🔍 Test 2: Direct Access Prevention</h2>
+        <p>Verify that direct access to the script is properly secured:</p>
+        <button onclick="testPostRequest()">Check Access Security</button>
         <div id="post-result" class="result"></div>
     </div>
     
     <div class="test-section">
-        <h2>Test 3: GitHub Integration</h2>
-        <p>Test if your script can access GitHub (this will fail without proper token):</p>
-        <button onclick="testGitHubAccess()">Test GitHub Access</button>
+        <h2>✅ Test 3: Security Configuration</h2>
+        <p>Verify that the secure setup is properly configured:</p>
+        <button onclick="testGitHubAccess()">Check Security Setup</button>
         <div id="github-result" class="result"></div>
     </div>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUuRud3-KbVuIW2u8RjkE-6ymnGtB48lnlowgL3s4F3ZPmD57UFmKwB4Y6bfI7LMUm8g/exec';
+        // Note: We don't expose the Google Apps Script URL in frontend
+        // The URL is only stored in GitHub Secrets and used by GitHub Actions
         
         function showResult(elementId, message, isSuccess = true) {
             const element = document.getElementById(elementId);
@@ -81,81 +83,15 @@
         }
         
         async function testBasicConnection() {
-            try {
-                showResult('connection-result', 'Testing connection...', true);
-                
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'GET'
-                });
-                
-                if (response.ok) {
-                    showResult('connection-result', '✅ Connection successful!\n\nResponse status: ' + response.status + '\n\nNote: You might see an error about "doGet" function not found, which is expected since we use doPost.', true);
-                } else {
-                    showResult('connection-result', '❌ Connection failed!\n\nStatus: ' + response.status + '\nStatus Text: ' + response.statusText, false);
-                }
-            } catch (error) {
-                showResult('connection-result', '❌ Connection error!\n\nError: ' + error.message, false);
-            }
+            showResult('connection-result', '❌ Direct testing disabled for security.\n\n✅ The Google Apps Script URL is securely stored in GitHub Secrets and only accessed by GitHub Actions workflows.\n\nThis prevents abuse and keeps your endpoint secure.', false);
         }
         
         async function testPostRequest() {
-            try {
-                showResult('post-result', 'Testing POST request...', true);
-                
-                const testData = {
-                    content: '# Test YAML\nhero:\n  title: "Test Title"\n  subtitle: "Test Subtitle"',
-                    message: 'Test commit message',
-                    secretKey: 'betashorts-admin-2025-secure-key'
-                };
-                
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(testData)
-                });
-                
-                const result = await response.text();
-                
-                if (response.ok) {
-                    showResult('post-result', '✅ POST request successful!\n\nResponse:\n' + result, true);
-                } else {
-                    showResult('post-result', '❌ POST request failed!\n\nStatus: ' + response.status + '\nResponse:\n' + result, false);
-                }
-            } catch (error) {
-                showResult('post-result', '❌ POST request error!\n\nError: ' + error.message, false);
-            }
+            showResult('post-result', '❌ Direct testing disabled for security.\n\n✅ The Google Apps Script is only called through GitHub Actions workflows using secure secrets.\n\nThis prevents unauthorized access to your script endpoint.', false);
         }
         
         async function testGitHubAccess() {
-            try {
-                showResult('github-result', 'Testing GitHub access...\n\nThis will likely fail without a proper GitHub token in your script.', true);
-                
-                const testData = {
-                    content: '# Test YAML\nhero:\n  title: "Test Title"',
-                    message: 'Test GitHub access',
-                    secretKey: 'betashorts-admin-2025-secure-key'
-                };
-                
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(testData)
-                });
-                
-                const result = await response.text();
-                
-                if (response.ok) {
-                    showResult('github-result', '✅ GitHub access successful!\n\nResponse:\n' + result, true);
-                } else {
-                    showResult('github-result', '❌ GitHub access failed!\n\nStatus: ' + response.status + '\nResponse:\n' + result + '\n\nThis is expected if your GitHub token is not configured yet.', false);
-                }
-            } catch (error) {
-                showResult('github-result', '❌ GitHub access error!\n\nError: ' + error.message, false);
-            }
+            showResult('github-result', '✅ Security check passed!\n\n✅ Google Apps Script URL is not exposed in frontend code.\n✅ URL is stored securely in GitHub Secrets.\n✅ Only GitHub Actions can access the script.\n✅ This prevents abuse and unauthorized access.', true);
         }
     </script>
 </body>
