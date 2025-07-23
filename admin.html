@@ -866,7 +866,7 @@ function exportContent() {
     URL.revokeObjectURL(url);
 }
 
-// Publish content directly to GitHub
+// Publish content via GitHub Issues (Secure Method)
 async function publishToGitHub() {
     try {
         // Show loading state
@@ -915,46 +915,69 @@ async function publishToGitHub() {
         };
         
         const yamlContent = generateYamlContent(formData);
+        const commitMessage = `Update home template content via admin panel - ${new Date().toLocaleString()}`;
         
-        // Prepare the request payload
-        const payload = {
-            content: yamlContent,
-            message: `Update home template content via admin panel - ${new Date().toLocaleString()}`,
-            secretKey: 'your-secret-key-here' // Must match the one in your Google Apps Script
-        };
-        
-        // Replace this URL with your actual Google Apps Script web app URL
-        const scriptUrl = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
-        
-        // Send the request
-        const response = await fetch(scriptUrl, {
+        // Create GitHub issue with the content
+        const issueTitle = `[ADMIN-PUBLISH] ${commitMessage}`;
+        const issueBody = `## Content Update Request
+
+**Commit Message:** ${commitMessage}
+
+**YAML Content:**
+\`\`\`yaml
+${yamlContent}
+\`\`\`
+
+---
+*This issue was created by the admin panel and will be automatically processed by GitHub Actions.*`;
+
+        // Create the issue using GitHub's REST API
+        const response = await fetch(`https://api.github.com/repos/betashorts/betashorts-site/issues`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `token ${getGitHubToken()}`,
+                'Accept': 'application/vnd.github.v3+json'
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify({
+                title: issueTitle,
+                body: issueBody,
+                labels: ['admin-publish']
+            })
         });
         
-        const result = await response.json();
-        
-        if (result.success) {
-            alert(`✅ Successfully published to GitHub!\n\nCommit URL: ${result.commitUrl}\n\nYour site will be updated in a few minutes.`);
+        if (response.ok) {
+            const issue = await response.json();
+            alert(`✅ Publishing request submitted!\n\nIssue #${issue.number} created successfully.\n\nGitHub Actions will process your changes and update the site automatically.\n\nYou can track progress at: ${issue.html_url}`);
             
             // Save to localStorage as well
             localStorage.setItem('homeTemplateData', JSON.stringify(formData));
         } else {
-            throw new Error(result.error || 'Unknown error occurred');
+            const error = await response.json();
+            throw new Error(`GitHub API Error: ${error.message || 'Unknown error'}`);
         }
         
     } catch (error) {
         console.error('Publish error:', error);
-        alert(`❌ Failed to publish: ${error.message}\n\nPlease check your configuration and try again.`);
+        alert(`❌ Failed to submit publishing request: ${error.message}\n\nPlease check your GitHub token and try again.`);
     } finally {
         // Reset button state
         const publishBtn = document.querySelector('button[onclick="publishToGitHub()"]');
         publishBtn.innerHTML = originalText;
         publishBtn.disabled = false;
     }
+}
+
+// Get GitHub token from user input (more secure than hardcoding)
+function getGitHubToken() {
+    let token = localStorage.getItem('github_token');
+    if (!token) {
+        token = prompt('Please enter your GitHub Personal Access Token (it will be stored locally for this session):');
+        if (token) {
+            localStorage.setItem('github_token', token);
+        }
+    }
+    return token;
 }
 
 // Load saved data on page load

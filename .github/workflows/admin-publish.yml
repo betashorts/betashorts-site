@@ -1,0 +1,48 @@
+name: Admin Panel Content Publishing
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  publish-content:
+    if: contains(github.event.issue.title, '[ADMIN-PUBLISH]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract content from issue
+        id: extract
+        run: |
+          # Extract the YAML content from the issue body
+          # Look for content between ```yaml and ``` markers
+          CONTENT=$(echo "${{ github.event.issue.body }}" | sed -n '/```yaml/,/```/p' | sed '1d;$d')
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          echo "$CONTENT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          # Extract commit message
+          MESSAGE=$(echo "${{ github.event.issue.body }}" | grep "Commit Message:" | cut -d':' -f2- | xargs)
+          echo "message=$MESSAGE" >> $GITHUB_OUTPUT
+
+      - name: Call Google Apps Script API
+        run: |
+          curl -X POST "${{ secrets.GOOGLE_APPS_SCRIPT_URL }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "content": ${{ steps.extract.outputs.content }},
+              "message": "${{ steps.extract.outputs.message }}",
+              "secretKey": "${{ secrets.ADMIN_SECRET_KEY }}"
+            }'
+
+      - name: Close issue on success
+        if: success()
+        run: |
+          gh issue close ${{ github.event.issue.number }} --comment "✅ Content published successfully! Your changes are now live on the site."
+
+      - name: Comment on failure
+        if: failure()
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "❌ Failed to publish content. Please check the logs and try again."
