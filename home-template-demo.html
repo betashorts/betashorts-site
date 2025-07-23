@@ -14,4 +14,14 @@ meta: '<meta name="description" content="Demo of the new home template with hero
         This is additional content that can be added to any page using the home-template layout. 
         The layout automatically includes the hero, services, and contact sections above this content.
     </p>
+    
+    <!-- Debug Section - Remove this after testing -->
+    <div style="margin-top: 2rem; padding: 1rem; background: #f1f5f9; border-radius: 8px; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto;">
+        <h3 style="color: #1e293b;">Debug Info:</h3>
+        <p><strong>Hero Title:</strong> {{ site.data.template-content.hero.title }}</p>
+        <p><strong>Hero Subtitle:</strong> {{ site.data.template-content.hero.subtitle }}</p>
+        <p><strong>Services Title:</strong> {{ site.data.template-content.services.title }}</p>
+        <p><strong>Contact Title:</strong> {{ site.data.template-content.contact.title }}</p>
+        <p><strong>YAML File Exists:</strong> {% if site.data.template-content %}✅ Yes{% else %}❌ No{% endif %}</p>
+    </div>
 </div> 

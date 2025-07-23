@@ -1,0 +1,102 @@
+---
+layout: default
+title: "YAML Content Test"
+---
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+    }
+    .debug-section {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+    }
+    .success { color: #28a745; }
+    .error { color: #dc3545; }
+    .info { color: #17a2b8; }
+    pre {
+        background: #f1f3f4;
+        padding: 15px;
+        border-radius: 4px;
+        overflow-x: auto;
+    }
+</style>
+
+<h1>🔍 YAML Content Test</h1>
+
+<div class="debug-section">
+    <h2>Basic YAML Access Test</h2>
+    <p><strong>YAML File Exists:</strong> 
+        {% if site.data.template-content %}
+            <span class="success">✅ Yes</span>
+        {% else %}
+            <span class="error">❌ No</span>
+        {% endif %}
+    </p>
+    
+    <p><strong>Hero Title:</strong> 
+        {% if site.data.template-content.hero.title %}
+            <span class="success">{{ site.data.template-content.hero.title }}</span>
+        {% else %}
+            <span class="error">❌ Not found</span>
+        {% endif %}
+    </p>
+    
+    <p><strong>Hero Subtitle:</strong> 
+        {% if site.data.template-content.hero.subtitle %}
+            <span class="success">{{ site.data.template-content.hero.subtitle }}</span>
+        {% else %}
+            <span class="error">❌ Not found</span>
+        {% endif %}
+    </p>
+</div>
+
+<div class="debug-section">
+    <h2>Full YAML Content</h2>
+    <pre>{{ site.data.template-content | jsonify }}</pre>
+</div>
+
+<div class="debug-section">
+    <h2>Available Site Data</h2>
+    <p><strong>All Data Files:</strong></p>
+    <ul>
+    {% for data_file in site.data %}
+        <li><span class="info">{{ data_file[0] }}</span></li>
+    {% endfor %}
+    </ul>
+</div>
+
+<div class="debug-section">
+    <h2>Template Content Structure</h2>
+    {% if site.data.template-content %}
+        <p><strong>Hero Section:</strong></p>
+        <ul>
+            <li>Title: {{ site.data.template-content.hero.title }}</li>
+            <li>Subtitle: {{ site.data.template-content.hero.subtitle }}</li>
+            <li>Image: {{ site.data.template-content.hero.image.src }}</li>
+        </ul>
+        
+        <p><strong>Services Section:</strong></p>
+        <ul>
+            <li>Title: {{ site.data.template-content.services.title }}</li>
+            <li>Subtitle: {{ site.data.template-content.services.subtitle }}</li>
+            <li>Number of Services: {{ site.data.template-content.services.items.size }}</li>
+        </ul>
+        
+        <p><strong>Contact Section:</strong></p>
+        <ul>
+            <li>Title: {{ site.data.template-content.contact.title }}</li>
+            <li>Email: {{ site.data.template-content.contact.details.email }}</li>
+            <li>Phone: {{ site.data.template-content.contact.details.phone }}</li>
+        </ul>
+    {% else %}
+        <p class="error">❌ No template-content data found</p>
+    {% endif %}
+</div> 
