@@ -18,10 +18,17 @@ jobs:
         run: |
           # Extract the YAML content from the issue body
           # Look for content between ```yaml and ``` markers
-          CONTENT=$(echo "${{ github.event.issue.body }}" | sed -n '/```yaml/,/```/p' | sed '1d;$d')
-          echo "content<<EOF" >> $GITHUB_OUTPUT
+          # Use awk for more robust multiline extraction
+          CONTENT=$(echo "${{ github.event.issue.body }}" | awk '/```yaml/{flag=1;next}/```/{flag=0}flag')
+
+          echo "Extracted raw content (for debug):"
+          echo "$CONTENT"
+          echo "Extracted content length (for debug): $(echo "$CONTENT" | wc -c)"
+
+          # Output the content to GITHUB_OUTPUT using a unique delimiter
+          echo "content<<EOF_YAML_CONTENT" >> $GITHUB_OUTPUT
           echo "$CONTENT" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          echo "EOF_YAML_CONTENT" >> $GITHUB_OUTPUT
 
           # Extract commit message
           MESSAGE=$(echo "${{ github.event.issue.body }}" | grep "Commit Message:" | cut -d':' -f2- | xargs)
