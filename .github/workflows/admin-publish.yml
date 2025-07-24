@@ -13,26 +13,49 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract content from issue
+            - name: Extract content from issue
         id: extract
         run: |
           # Extract the YAML content from the issue body
           # Look for content between ```yaml and ``` markers
-          # Use awk for more robust multiline extraction
-          CONTENT=$(echo "${{ github.event.issue.body }}" | awk '/```yaml/{flag=1;next}/```/{flag=0}flag')
-
-          echo "Extracted raw content (for debug):"
-          echo "$CONTENT"
-          echo "Extracted content length (for debug): $(echo "$CONTENT" | wc -c)"
-
+          # Use a more robust approach with grep and sed
+          
+          # First, let's see what we're working with
+          echo "Raw issue body (first 500 chars):"
+          echo "${{ github.event.issue.body }}" | head -c 500
+          echo ""
+          
+          # Extract YAML content using a different approach
+          # Save issue body to a temporary file
+          echo "${{ github.event.issue.body }}" > issue_body.txt
+          
+          # Extract content between ```yaml and ``` markers
+          CONTENT=$(sed -n '/```yaml/,/```/p' issue_body.txt | sed '1d;$d')
+          
+          echo "Extracted content (first 200 chars):"
+          echo "$CONTENT" | head -c 200
+          echo ""
+          echo "Extracted content length: $(echo "$CONTENT" | wc -c)"
+          
+          # Check if content is empty
+          if [ -z "$CONTENT" ]; then
+            echo "ERROR: No YAML content found!"
+            echo "Issue body markers found:"
+            grep -n "```" issue_body.txt || echo "No markers found"
+            exit 1
+          fi
+          
           # Output the content to GITHUB_OUTPUT using a unique delimiter
           echo "content<<EOF_YAML_CONTENT" >> $GITHUB_OUTPUT
           echo "$CONTENT" >> $GITHUB_OUTPUT
           echo "EOF_YAML_CONTENT" >> $GITHUB_OUTPUT
 
-          # Extract commit message
-          MESSAGE=$(echo "${{ github.event.issue.body }}" | grep "Commit Message:" | cut -d':' -f2- | xargs)
+          # Extract commit message (handle bold format)
+          MESSAGE=$(echo "${{ github.event.issue.body }}" | grep "**Commit Message:**" | sed 's/.*\*\*Commit Message:\*\* //' | xargs)
           echo "message=$MESSAGE" >> $GITHUB_OUTPUT
+          
+          # Clean up
+          rm -f issue_body.txt
 
       - name: Test Google Apps Script Connection
         run: |
@@ -44,45 +67,46 @@ jobs:
             exit 1
           fi
 
-      - name: Call Google Apps Script API
+            - name: Call Google Apps Script API
         run: |
           # Debug: Show what we're extracting
           echo "Extracted content length: $(echo '${{ steps.extract.outputs.content }}' | wc -c)"
           echo "Extracted message: ${{ steps.extract.outputs.message }}"
-
-          # Create the JSON payload
-          PAYLOAD=$(jq -n \
-            --arg content "${{ steps.extract.outputs.content }}" \
-            --arg message "${{ steps.extract.outputs.message }}" \
-            --arg secretKey "${{ secrets.ADMIN_SECRET_KEY }}" \
-            '{
-              "content": $content,
-              "message": $message,
-              "secretKey": $secretKey
-            }')
-
+          
+          # Create a temporary file for the JSON payload to avoid escaping issues
+          cat > payload.json << 'EOF'
+          {
+            "content": ${{ steps.extract.outputs.content }},
+            "message": "${{ steps.extract.outputs.message }}",
+            "secretKey": "${{ secrets.ADMIN_SECRET_KEY }}"
+          }
+          EOF
+          
           # Debug: Show the payload (without sensitive data)
           echo "Payload created successfully"
-          echo "Payload length: $(echo "$PAYLOAD" | wc -c)"
-
-          # Send the request
+          echo "Payload length: $(cat payload.json | wc -c)"
+          
+          # Send the request using the file
           RESPONSE=$(curl -X POST "${{ secrets.GOOGLE_APPS_SCRIPT_URL }}" \
             -H "Content-Type: application/json" \
-            -d "$PAYLOAD" \
+            -d @payload.json \
             -w "\nHTTP_STATUS:%{http_code}")
-
+          
           # Extract HTTP status and response body
           HTTP_STATUS=$(echo "$RESPONSE" | grep "HTTP_STATUS:" | cut -d':' -f2)
           RESPONSE_BODY=$(echo "$RESPONSE" | sed '/HTTP_STATUS:/d')
-
+          
           echo "HTTP Status: $HTTP_STATUS"
           echo "Response: $RESPONSE_BODY"
-
+          
           # Fail if not successful
           if [ "$HTTP_STATUS" != "200" ]; then
             echo "❌ Google Apps Script returned status $HTTP_STATUS"
             exit 1
           fi
+          
+          # Clean up
+          rm -f payload.json
 
       - name: Close issue on success
         if: success()
