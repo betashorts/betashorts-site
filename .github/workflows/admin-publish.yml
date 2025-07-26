@@ -24,6 +24,9 @@ jobs:
           echo "Raw issue body (first 500 chars):"
           echo "${{ github.event.issue.body }}" | head -c 500
           echo ""
+          echo "Full issue body for debugging:"
+          echo "${{ github.event.issue.body }}"
+          echo "=== END ISSUE BODY ==="
 
           # Extract YAML content using a different approach
           # Save issue body to a temporary file
@@ -42,6 +45,8 @@ jobs:
             echo "ERROR: No YAML content found!"
             echo "Issue body markers found:"
             grep -n "```" issue_body.txt || echo "No markers found"
+            echo "Looking for yaml markers:"
+            grep -n "yaml" issue_body.txt || echo "No yaml markers found"
             exit 1
           fi
 
@@ -73,23 +78,25 @@ jobs:
           echo "Extracted content length: $(echo '${{ steps.extract.outputs.content }}' | wc -c)"
           echo "Extracted message: ${{ steps.extract.outputs.message }}"
 
-          # Create a temporary file for the JSON payload to avoid escaping issues
-          cat > payload.json << 'EOF'
-          {
-            "content": ${{ steps.extract.outputs.content }},
-            "message": "${{ steps.extract.outputs.message }}",
-            "secretKey": "${{ secrets.ADMIN_SECRET_KEY }}"
-          }
-          EOF
+          # Create the JSON payload using jq to properly escape the content
+          PAYLOAD=$(jq -n \
+            --arg content "${{ steps.extract.outputs.content }}" \
+            --arg message "${{ steps.extract.outputs.message }}" \
+            --arg secretKey "${{ secrets.ADMIN_SECRET_KEY }}" \
+            '{
+              "content": $content,
+              "message": $message,
+              "secretKey": $secretKey
+            }')
 
           # Debug: Show the payload (without sensitive data)
           echo "Payload created successfully"
-          echo "Payload length: $(cat payload.json | wc -c)"
+          echo "Payload length: $(echo "$PAYLOAD" | wc -c)"
 
-          # Send the request using the file
+          # Send the request
           RESPONSE=$(curl -X POST "${{ secrets.GOOGLE_APPS_SCRIPT_URL }}" \
             -H "Content-Type: application/json" \
-            -d @payload.json \
+            -d "$PAYLOAD" \
             -w "\nHTTP_STATUS:%{http_code}")
 
           # Extract HTTP status and response body
@@ -104,9 +111,6 @@ jobs:
             echo "❌ Google Apps Script returned status $HTTP_STATUS"
             exit 1
           fi
-
-          # Clean up
-          rm -f payload.json
 
       - name: Close issue on success
         if: success()
