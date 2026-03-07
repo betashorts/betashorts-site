@@ -323,17 +323,19 @@ body {
 
 /* Blog Post Styling */
 .blog-post {
-  margin: 2rem auto;
-  max-width: 800px;
-  padding: 2rem;
+  margin: 3rem auto;
+  max-width: 760px;
+  padding: 2.5rem 1.5rem;
   background: #ffffff;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  line-height: 1.8;
+  font-family: "Charter", "Times New Roman", serif;
 }
 
 .blog-post h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
   color: #111827;
@@ -341,29 +343,81 @@ body {
   font-family: "Georgia", "Times New Roman", serif;
 }
 
+.blog-post h2,
+.blog-post h3,
+.blog-post h4 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-family: "Georgia", "Times New Roman", serif;
+  color: #111827;
+  line-height: 1.3;
+}
+
 .blog-post p {
   font-size: 1.125rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
   color: #374151;
-  line-height: 1.7;
+}
+
+.blog-post blockquote {
+  margin: 2rem 0;
+  padding-left: 1rem;
+  border-left: 4px solid #e5e7eb;
+  color: #555;
+  font-style: italic;
+}
+
+.blog-post pre,
+.blog-post code {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.blog-post pre {
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.blog-post img {
+  display: block;
+  margin: 2rem auto;
+  max-width: 100%;
 }
 
 .blog-post .meta {
   font-size: 0.875rem;
   color: #6b7280;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   font-weight: 500;
 }
 
+.reading-time {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
 .blog-post a {
-  color: #2563eb;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s ease;
+  color: #111827;
+  text-decoration: underline;
 }
 
 .blog-post a:hover {
-  border-bottom-color: #2563eb;
+  text-decoration: none;
+}
+
+/* Progress bar (hidden until JS updates) */
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: #111827;
+  width: 0%;
+  z-index: 2000;
+  transition: width 0.1s linear;
 }
 
 /* Blog Listing Page */

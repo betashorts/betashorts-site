@@ -59,6 +59,7 @@
 
 </head>
 <body>
+<div id="reading-progress"></div>
 <header>
     <nav class="navbar">
         <div class="navbar-container">
@@ -129,6 +130,41 @@
                 navbarToggle.classList.remove('active');
             }
         });
+
+        // Reading progress bar for articles
+        function updateReadingProgress() {
+            const bar = document.getElementById('reading-progress');
+            if (!bar) return;
+            const post = document.querySelector('article, .blog-post');
+            if (!post) {
+                bar.style.width = '0%';
+                return;
+            }
+            const totalHeight = post.scrollHeight - window.innerHeight;
+            const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+            const offset = post.getBoundingClientRect().top + window.pageYOffset;
+            const progress = totalHeight > 0 ? ((scrollY - offset) / totalHeight) * 100 : 0;
+            bar.style.width = Math.min(Math.max(progress, 0), 100) + '%';
+        }
+        window.addEventListener('scroll', updateReadingProgress);
+        window.addEventListener('resize', updateReadingProgress);
+
+        // reading time estimator for posts
+        function insertReadingTime() {
+            const postContent = document.querySelector('.blog-post .content');
+            if (!postContent) return;
+            const text = postContent.innerText || postContent.textContent || '';
+            const words = text.trim().split(/\s+/).length;
+            const minutes = Math.ceil(words / 200);
+            const rt = document.createElement('p');
+            rt.className = 'reading-time';
+            rt.textContent = minutes + ' min read';
+            // insert after date paragraph if exists
+            const datePara = document.querySelector('.blog-post > p');
+            if (datePara) datePara.after(rt);
+            else postContent.prepend(rt);
+        }
+        window.addEventListener('DOMContentLoaded', insertReadingTime);
     </script>
 </body>
 </html>
