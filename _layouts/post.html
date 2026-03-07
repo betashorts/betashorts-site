@@ -9,46 +9,43 @@ layout: default
     </div>
 </article>
 
-<!-- Explore Other Blogs Section -->
-<section class="explore-blogs">
-    <h3>Explore Other Great Blogs</h3>
-    <p>Discover more amazing content from these excellent tech and programming blogs:</p>
-    <div class="blogs-grid">
-        <a href="https://overreacted.io/" target="_blank" class="blog-link">
-            <div class="blog-card">
-                <h4>Overreacted</h4>
-                <p>Dan Abramov's personal blog about React, programming, and life</p>
-            </div>
+<!-- Related Posts Section -->
+<section class="related-posts">
+    <h3>More Articles</h3>
+    <p>Continue reading with these related articles:</p>
+    <div class="related-posts-list">
+        {% assign related_posts = site.posts | where: "lang", page.lang | where_exp: "post", "post.url != page.url" | limit: 3 %}
+        {% for post in related_posts %}
+        <a href="{{ post.url }}" class="blog-link">
+            <article class="blog-item">
+                <div class="blog-item-content">
+                    <h4 class="blog-post-title">{{ post.title }}</h4>
+                    <p class="blog-post-excerpt">
+                        {% if post.excerpt %}
+                            {{ post.excerpt | strip_html | truncatewords: 20 }}
+                        {% else %}
+                            {{ post.content | strip_html | truncatewords: 20 }}
+                        {% endif %}
+                    </p>
+                    <div class="blog-item-meta">
+                        <span class="blog-meta-date">{{ post.date | date: "%B %d, %Y" }}</span>
+                        <span class="blog-meta-category">
+                            {% if post.title contains 'bash' or post.title contains 'Bash' %}
+                                Bash
+                            {% elsif post.title contains 'git' or post.title contains 'Git' %}
+                                Git
+                            {% elsif post.title contains 'tradingview' or post.title contains 'TradingView' or post.title contains 'trading' or post.title contains 'pine' or post.title contains 'forex' or post.title contains 'stock' %}
+                                Trading
+                            {% elsif post.title contains 'fiverr' or post.title contains 'upwork' %}
+                                Careers
+                            {% else %}
+                                General
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </article>
         </a>
-        <a href="https://kentcdodds.com/blog" target="_blank" class="blog-link">
-            <div class="blog-card">
-                <h4>Kent C. Dodds</h4>
-                <p>Articles about React, testing, and JavaScript best practices</p>
-            </div>
-        </a>
-        <a href="https://www.joshwcomeau.com/" target="_blank" class="blog-link">
-            <div class="blog-card">
-                <h4>Josh W. Comeau</h4>
-                <p>Deep dives into CSS, React, and modern web development</p>
-            </div>
-        </a>
-        <a href="https://css-tricks.com/" target="_blank" class="blog-link">
-            <div class="blog-card">
-                <h4>CSS-Tricks</h4>
-                <p>Comprehensive CSS tutorials, tips, and techniques</p>
-            </div>
-        </a>
-        <a href="https://dev.to/" target="_blank" class="blog-link">
-            <div class="blog-card">
-                <h4>DEV Community</h4>
-                <p>A constructive and inclusive social network for software developers</p>
-            </div>
-        </a>
-        <a href="https://www.smashingmagazine.com/articles/" target="_blank" class="blog-link">
-            <div class="blog-card">
-                <h4>Smashing Magazine</h4>
-                <p>Articles on web design, development, and user experience</p>
-            </div>
-        </a>
+        {% endfor %}
     </div>
 </section>

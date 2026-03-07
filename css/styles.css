@@ -408,8 +408,8 @@ body {
   text-decoration: none;
 }
 
-/* Explore Other Blogs Section */
-.explore-blogs {
+/* Related Posts Section */
+.related-posts {
   max-width: 760px;
   margin: 3rem auto;
   padding: 2rem 1.5rem;
@@ -418,60 +418,75 @@ body {
   border: 1px solid #e5e7eb;
 }
 
-.explore-blogs h3 {
+.related-posts h3 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
   color: #111827;
   font-weight: 600;
 }
 
-.explore-blogs > p {
+.related-posts > p {
   color: #6b7280;
   margin-bottom: 2rem;
   font-size: 1rem;
 }
 
-.blogs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+.related-posts-list {
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
-.blog-link {
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.2s ease;
-}
-
-.blog-link:hover {
-  transform: translateY(-2px);
-}
-
-.blog-card {
-  background: #ffffff;
+.related-posts .blog-item {
+  margin-bottom: 0;
   padding: 1.5rem;
+  background-color: #ffffff;
   border-radius: 6px;
   border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.2s ease;
 }
 
-.blog-card:hover {
+.related-posts .blog-item:hover {
+  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
 }
 
-.blog-card h4 {
+.related-posts .blog-post-title {
   font-size: 1.125rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   color: #111827;
   font-weight: 600;
+  line-height: 1.4;
 }
 
-.blog-card p {
+.related-posts .blog-post-excerpt {
   color: #6b7280;
   font-size: 0.875rem;
   line-height: 1.5;
-  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.related-posts .blog-item-meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.related-posts .blog-meta-date,
+.related-posts .blog-meta-category {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6b7280;
+  padding: 0.25rem 0.5rem;
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+.related-posts .blog-meta-category {
+  background: #dbeafe;
+  color: #1e40af;
 }
 
 /* Progress bar (hidden until JS updates) */
@@ -1399,13 +1414,13 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  .blogs-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .explore-blogs {
+  .related-posts {
     margin: 2rem 1rem;
     padding: 1.5rem 1rem;
+  }
+
+  .related-posts-list {
+    gap: 1rem;
   }
 
   .featured-post-large {
@@ -1453,11 +1468,11 @@ footer {
     font-size: 0.9rem;
   }
 
-  .explore-blogs h3 {
+  .related-posts h3 {
     font-size: 1.25rem;
   }
 
-  .blog-card {
+  .related-posts .blog-item {
     padding: 1rem;
   }
 }
