@@ -1,30 +1,242 @@
 ---
 layout: default
-title: "Blog - Beta Shorts"
+title: "Blog - Learn Programming, Trading & Tech - Beta Shorts"
 meta: |
-  <meta name="description" content="Explore the latest blogs on GPU reviews, hardware insights, and tech tutorials. Stay updated with cutting-edge tech trends at Beta Shorts.">
-  <meta name="keywords" content="GPU reviews, hardware insights, tech tutorials, Beta Shorts blog, technology news, GPUs, processors, tech trends">
+  <meta name="description" content="Free programming tutorials, trading guides, and developer resources. Learn Bash, Git, Pine Script, and more from beginner to advanced levels.">
+  <meta name="keywords" content="bash tutorial, git commands, pine script, tradingview, forex trading, programming blog, developer guide, shell script, linux tutorial">
   <meta name="author" content="Beta Shorts">
   <meta property="og:title" content="Blog - Beta Shorts">
-  <meta property="og:description" content="Discover in-depth articles on GPUs, hardware, and tech tutorials. Beta Shorts brings you expert insights and the latest trends in the tech world.">
+  <meta property="og:description" content="Free programming and trading tutorials. Learn Bash, Git, TradingView Pine Script, and more.">
   <meta property="og:image" content="https://betashorts.com/logo.jpg">
   <meta property="og:url" content="https://betashorts.com/blog/">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Blog - Beta Shorts">
-  <meta name="twitter:description" content="Read the latest blogs on GPU reviews, tech tutorials, and hardware insights at Beta Shorts. Stay ahead in the tech game.">
+  <meta name="twitter:description" content="Learn programming, trading, and tech skills with our free tutorials and guides.">
   <meta name="twitter:image" content="https://betashorts.com/logo.jpg">
 ---
-<div class="blog-listing">
-    <h1 class="blog-title">Blog</h1>
-    <ul class="blog-list">
-        {% for post in site.posts %}
-        <li class="blog-item">
-            <a href="{{ post.url }}" class="blog-link">
-                <h2 class="blog-post-title">{{ post.title }}</h2>
-            </a>
-            <p class="blog-meta">{{ post.date | date: "%B %d, %Y" }}</p>
-        </li>
-        {% endfor %}
-    </ul>
+
+<div class="blog-container">
+    <div class="blog-header">
+        <h1 class="blog-title">Learn & Master Your Skills</h1>
+        <p class="blog-subtitle">Free programming tutorials, trading guides, and developer resources from our expert community</p>
+    </div>
+
+    <div class="blog-content">
+        <!-- Category Filter (Optional) -->
+        <div class="blog-categories">
+            <a href="#all" class="category-filter active" onclick="filterByCategory('all')">All Articles</a>
+            <a href="#bash" class="category-filter" onclick="filterByCategory('bash')">📘 Bash</a>
+            <a href="#git" class="category-filter" onclick="filterByCategory('git')">🔧 Git</a>
+            <a href="#trading" class="category-filter" onclick="filterByCategory('trading')">📊 Trading</a>
+            <a href="#careers" class="category-filter" onclick="filterByCategory('careers')">💼 Careers</a>
+        </div>
+
+        <ul class="blog-list">
+            {% for post in site.posts %}
+            <li class="blog-item" data-category="{% if post.title contains 'bash' or post.title contains 'Bash' %}bash{% elsif post.title contains 'git' or post.title contains 'Git' %}git{% elsif post.title contains 'tradingview' or post.title contains 'TradingView' or post.title contains 'pine' or post.title contains 'trading' or post.title contains 'forex' or post.title contains 'stock' %}trading{% elsif post.title contains 'fiverr' or post.title contains 'upwork' %}careers{% else %}general{% endif %}">
+                <a href="{{ post.url }}" class="blog-link">
+                    <div class="blog-item-content">
+                        <h2 class="blog-post-title">{{ post.title }}</h2>
+                        <p class="blog-post-excerpt">
+                            {% if post.excerpt %}
+                                {{ post.excerpt | strip_html | truncatewords: 25 }}
+                            {% else %}
+                                {{ post.content | strip_html | truncatewords: 25 }}
+                            {% endif %}
+                        </p>
+                        <div class="blog-item-meta">
+                            <span class="blog-meta-date">📅 {{ post.date | date: "%B %d, %Y" }}</span>
+                            <span class="blog-meta-category">
+                                {% if post.title contains 'bash' or post.title contains 'Bash' %}
+                                    Bash
+                                {% elsif post.title contains 'git' or post.title contains 'Git' %}
+                                    Git
+                                {% elsif post.title contains 'tradingview' or post.title contains 'TradingView' or post.title contains 'trading' or post.title contains 'pine' or post.title contains 'forex' or post.title contains 'stock' %}
+                                    Trading
+                                {% elsif post.title contains 'fiverr' or post.title contains 'upwork' %}
+                                    Careers
+                                {% else %}
+                                    General
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
+
+<style>
+.blog-container {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 2rem;
+}
+
+.blog-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.blog-title {
+    font-size: 2.5rem;
+    color: #1e1e2f;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.blog-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.blog-categories {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+    justify-content: center;
+}
+
+.category-filter {
+    padding: 0.5rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.category-filter:hover,
+.category-filter.active {
+    border-color: #667eea;
+    color: #667eea;
+    background: #f0f0ff;
+}
+
+.blog-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.blog-item {
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.blog-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.blog-link:hover {
+    border-left-color: #764ba2;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    transform: translateX(4px);
+}
+
+.blog-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.blog-post-title {
+    font-size: 1.4rem;
+    margin: 0;
+    color: #1e1e2f;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.blog-post-excerpt {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.blog-item-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: #999;
+}
+
+.blog-meta-date {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.blog-meta-category {
+    display: inline-block;
+    background: #e8eef7;
+    color: #667eea;
+    padding: 0.25rem 0.75rem;
+    border-radius: 3px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .blog-title {
+        font-size: 2rem;
+    }
+
+    .blog-link {
+        padding: 1.25rem;
+    }
+
+    .blog-post-title {
+        font-size: 1.2rem;
+    }
+
+    .blog-categories {
+        gap: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .category-filter {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+</style>
+
+<script>
+function filterByCategory(category) {
+    const items = document.querySelectorAll('.blog-item');
+    const filters = document.querySelectorAll('.category-filter');
+
+    // Update active filter
+    filters.forEach(f => f.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // Filter items
+    items.forEach(item => {
+        if (category === 'all') {
+            item.style.display = 'block';
+        } else {
+            item.style.display = item.dataset.category === category ? 'block' : 'none';
+        }
+    });
+}
+</script>
