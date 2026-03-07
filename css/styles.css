@@ -411,8 +411,8 @@ body {
 /* Related Posts Section */
 .related-posts {
   max-width: 760px;
-  margin: 3rem auto;
-  padding: 2rem 1.5rem;
+  margin: 1.5rem auto; /* reduce vertical gap */
+  padding: 1.5rem 1rem; /* tighter padding */
   background: #f9fafb;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
@@ -422,8 +422,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2rem auto 2.5rem; /* extra top/bottom space */
-  gap: 1rem;
+  margin: 1rem auto 1.5rem; /* reduced top/bottom gap */
+  gap: 0.75rem;
   width: 100%;
   max-width: 760px; /* match container width */
 }
@@ -436,8 +436,8 @@ body {
 }
 
 .section-logo {
-  width: 40px;
-  height: 40px;
+  width: 32px; /* smaller logo */
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #e5e7eb;
