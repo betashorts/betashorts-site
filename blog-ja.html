@@ -1,31 +1,31 @@
 ---
 layout: default
-title: "Blog - Ideas, Projects & Tech Articles - Beta Shorts"
+title: "ブログ - アイデア、プロジェクト & 技術記事 - Beta Shorts"
 meta: |
-  <meta name="description" content="A stream of ideas, research, and tech articles. Explore Bash tutorials and a random mix of posts covering projects, development, and experimentation.">
-  <meta name="keywords" content="bash tutorials, technical articles, ideas, research, development, experiments">
+  <meta name="description" content="アイデア、研究、技術記事のストリーム。Bashチュートリアルとプロジェクト、開発、実験に関するランダムな投稿を探索。">
+  <meta name="keywords" content="bashチュートリアル, 技術記事, アイデア, 研究, 開発, 実験">
   <meta name="author" content="Beta Shorts">
-  <meta property="og:title" content="Blog - Beta Shorts">
-  <meta property="og:description" content="A collection of articles on Bash, experiments, projects, and new ideas. Dive in and explore anything that sparks your curiosity.">
+  <meta property="og:title" content="ブログ - Beta Shorts">
+  <meta property="og:description" content="Bash、実験、プロジェクト、新しいアイデアについての記事集。興味を引くものを探求してください。">
   <meta property="og:image" content="https://betashorts.com/logo.jpg">
-  <meta property="og:url" content="https://betashorts.com/blog/">
+  <meta property="og:url" content="https://betashorts.com/blog-ja/">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Blog - Beta Shorts">
-  <meta name="twitter:description" content="Explore ideas, projects, and tech writing. From Bash tutorials to random experiments.">
+  <meta name="twitter:title" content="ブログ - Beta Shorts">
+  <meta name="twitter:description" content="アイデア、プロジェクト、技術ライティングを探索。Bashチュートリアルからランダムな実験まで。">
   <meta name="twitter:image" content="https://betashorts.com/logo.jpg">
 ---
 
 <div class="blog-container">
     <div class="blog-header">
-        <h1 class="blog-title">Articles & Ideas</h1>
-        <p class="blog-subtitle">A mix of technical articles, Bash tutorials, and random thoughts on projects and development</p>
+        <h1 class="blog-title">記事 & アイデア</h1>
+        <p class="blog-subtitle">技術記事、Bashチュートリアル、プロジェクトと開発に関するランダムな考えのミックス</p>
     </div>
 
     <div class="blog-content">
         <!-- Category Filter (Optional) -->
         <div class="blog-categories">
-            <a href="#all" class="category-filter active" onclick="filterByCategory('all')">All Articles</a>
+            <a href="#all" class="category-filter active" onclick="filterByCategory('all')">すべての記事</a>
             <a href="#bash" class="category-filter" onclick="filterByCategory('bash')">Bash</a>
             <a href="#git" class="category-filter" onclick="filterByCategory('git')">Git</a>
             <a href="#trading" class="category-filter" onclick="filterByCategory('trading')">Trading</a>
@@ -33,7 +33,7 @@ meta: |
         </div>
 
         <ul class="blog-list">
-            {% assign filtered_posts = site.posts | where: "lang", "en" %}
+            {% assign filtered_posts = site.posts | where: "lang", "ja" %}
             {% for post in filtered_posts %}
             <li class="blog-item" data-category="{% if post.title contains 'bash' or post.title contains 'Bash' %}bash{% elsif post.title contains 'git' or post.title contains 'Git' %}git{% elsif post.title contains 'tradingview' or post.title contains 'TradingView' or post.title contains 'pine' or post.title contains 'trading' or post.title contains 'forex' or post.title contains 'stock' %}trading{% elsif post.title contains 'fiverr' or post.title contains 'upwork' %}careers{% else %}general{% endif %}">
                 <a href="{{ post.url }}" class="blog-link">
@@ -47,7 +47,7 @@ meta: |
                             {% endif %}
                         </p>
                         <div class="blog-item-meta">
-                            <span class="blog-meta-date">{{ post.date | date: "%B %d, %Y" }}</span>
+                            <span class="blog-meta-date">📅 {{ post.date | date: "%B %d, %Y" }}</span>
                             <span class="blog-meta-category">
                                 {% if post.title contains 'bash' or post.title contains 'Bash' %}
                                     Bash
