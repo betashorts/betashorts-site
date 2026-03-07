@@ -408,6 +408,72 @@ body {
   text-decoration: none;
 }
 
+/* Explore Other Blogs Section */
+.explore-blogs {
+  max-width: 760px;
+  margin: 3rem auto;
+  padding: 2rem 1.5rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.explore-blogs h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #111827;
+  font-weight: 600;
+}
+
+.explore-blogs > p {
+  color: #6b7280;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.blogs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.blog-link {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease;
+}
+
+.blog-link:hover {
+  transform: translateY(-2px);
+}
+
+.blog-card {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.blog-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.blog-card h4 {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: #111827;
+  font-weight: 600;
+}
+
+.blog-card p {
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
 /* Progress bar (hidden until JS updates) */
 #reading-progress {
   position: fixed;
@@ -1333,6 +1399,15 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .blogs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .explore-blogs {
+    margin: 2rem 1rem;
+    padding: 1.5rem 1rem;
+  }
+
   .featured-post-large {
     grid-template-columns: 1fr;
   }
@@ -1376,5 +1451,13 @@ footer {
 
   .post-excerpt {
     font-size: 0.9rem;
+  }
+
+  .explore-blogs h3 {
+    font-size: 1.25rem;
+  }
+
+  .blog-card {
+    padding: 1rem;
   }
 }
