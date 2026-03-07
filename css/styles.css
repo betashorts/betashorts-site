@@ -422,14 +422,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin: 2rem auto 2.5rem; /* extra top/bottom space */
   gap: 1rem;
+  width: 100%;
+  max-width: 760px; /* match container width */
 }
 
 .divider-line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(to right, transparent, #d1d5db, transparent);
+  background: #d1d5db; /* solid line for clarity */
+  margin: 0 1rem;
 }
 
 .section-logo {
@@ -439,6 +442,7 @@ body {
   object-fit: cover;
   border: 2px solid #e5e7eb;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: block;
 }
 
 .related-posts h3 {
@@ -447,6 +451,7 @@ body {
   color: #111827;
   font-weight: 600;
   text-align: center;
+  margin-top: 0; /* ensure no extra space above heading */
 }
 
 .related-posts > p {
