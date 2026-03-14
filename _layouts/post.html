@@ -1,6 +1,39 @@
 ---
 layout: default
 ---
+
+<!-- Post hero band: sky-blue strip with title, date, and decorative SVG -->
+<div class="post-hero-band">
+    <div class="post-hero-inner">
+        <div class="post-hero-text">
+            <h1>{{ page.title }}</h1>
+            <span class="post-hero-date">{{ page.date | date: "%B %d, %Y" }}</span>
+        </div>
+        <div class="post-hero-svg">
+            <!-- Open book with quill and code bracket motif -->
+            <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:120px;height:80px;">
+                <!-- Left page -->
+                <path d="M10 65 L10 20 Q35 14 60 20 L60 65 Q35 59 10 65 Z" fill="#d6eaf8" stroke="#1a2f5e" stroke-width="2"/>
+                <!-- Right page -->
+                <path d="M60 65 L60 20 Q85 14 110 20 L110 65 Q85 59 60 65 Z" fill="#e8f4fd" stroke="#1a2f5e" stroke-width="2"/>
+                <!-- Spine -->
+                <line x1="60" y1="20" x2="60" y2="65" stroke="#1a2f5e" stroke-width="2"/>
+                <!-- Code bracket on right page -->
+                <text x="66" y="42" font-size="15" fill="#e8453c" font-family="monospace" font-weight="bold">&lt;/&gt;</text>
+                <!-- Lines on left page -->
+                <line x1="17" y1="34" x2="52" y2="34" stroke="#1a2f5e" stroke-width="1.5" opacity="0.35"/>
+                <line x1="17" y1="44" x2="48" y2="44" stroke="#1a2f5e" stroke-width="1.5" opacity="0.28"/>
+                <line x1="17" y1="54" x2="50" y2="54" stroke="#1a2f5e" stroke-width="1.5" opacity="0.28"/>
+                <!-- Quill tip at top-right of book -->
+                <path d="M105 15 Q115 8 112 18 Q108 14 105 15 Z" fill="#1a7a5e" opacity="0.8"/>
+                <line x1="108.5" y1="14" x2="100" y2="22" stroke="#1a7a5e" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+                <!-- Coral accent dot -->
+                <circle cx="14" cy="24" r="3" fill="#e8453c" opacity="0.6"/>
+            </svg>
+        </div>
+    </div>
+</div>
+
 <article class="blog-post">
     <h1>{{ page.title }}</h1>
     <p>{{ page.date | date: "%B %d, %Y" }}</p>

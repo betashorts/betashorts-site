@@ -16,12 +16,51 @@ meta: |
   <meta name="twitter:image" content="https://betashorts.com/logo.jpg">
 ---
 
-<div class="blog-container">
-    <div class="blog-header">
-        <h1 class="blog-title">Articles & Ideas</h1>
-        <p class="blog-subtitle">A mix of technical articles, Bash tutorials, and random thoughts on projects and development</p>
+<!-- Blog page hero banner -->
+<section class="blog-page-hero">
+    <div class="blog-page-hero-inner">
+        <div class="blog-page-hero-text">
+            <h1>Articles &amp; Ideas</h1>
+            <p>A mix of technical articles, Bash tutorials, and random thoughts on projects and development</p>
+        </div>
+        <!-- Notebook with pencil and floating tags SVG illustration -->
+        <svg viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:220px;flex-shrink:0;">
+            <!-- Notebook body -->
+            <rect x="58" y="38" width="160" height="124" rx="8" fill="#ffffff" stroke="#1a2f5e" stroke-width="3"/>
+            <!-- Spine -->
+            <rect x="58" y="38" width="22" height="124" rx="5" fill="#1a2f5e"/>
+            <!-- Notebook lines -->
+            <line x1="94" y1="64" x2="204" y2="64" stroke="#d6eaf8" stroke-width="2.5"/>
+            <line x1="94" y1="80" x2="204" y2="80" stroke="#d6eaf8" stroke-width="2.5"/>
+            <line x1="94" y1="96" x2="178" y2="96" stroke="#d6eaf8" stroke-width="2.5"/>
+            <line x1="94" y1="112" x2="192" y2="112" stroke="#d6eaf8" stroke-width="2.5"/>
+            <line x1="94" y1="128" x2="168" y2="128" stroke="#d6eaf8" stroke-width="2.5"/>
+            <line x1="94" y1="144" x2="185" y2="144" stroke="#d6eaf8" stroke-width="2.5"/>
+            <!-- Pencil (rotated) -->
+            <g transform="rotate(30, 210, 60)">
+                <rect x="196" y="28" width="9" height="52" rx="2" fill="#e8453c"/>
+                <rect x="196" y="28" width="9" height="8" rx="2" fill="#1a2f5e"/>
+                <polygon points="196,80 205,80 200.5,94" fill="#f5e0d0"/>
+                <circle cx="200.5" cy="93" r="2.5" fill="#1a2f5e"/>
+            </g>
+            <!-- Floating tag: Bash -->
+            <rect x="18" y="75" width="40" height="20" rx="10" fill="#e8453c"/>
+            <text x="26" y="89" font-size="9.5" fill="white" font-family="monospace" font-weight="bold">Bash</text>
+            <!-- Floating tag: Git -->
+            <rect x="242" y="52" width="42" height="20" rx="10" fill="#1a2f5e"/>
+            <text x="253" y="66" font-size="9.5" fill="white" font-family="monospace" font-weight="bold">Git</text>
+            <!-- Floating tag: Trading -->
+            <rect x="236" y="118" width="58" height="20" rx="10" fill="#1a7a5e"/>
+            <text x="244" y="132" font-size="9.5" fill="white" font-family="monospace" font-weight="bold">Trading</text>
+            <!-- Small sparkles -->
+            <circle cx="30" cy="140" r="4" fill="#e8453c" opacity="0.5"/>
+            <circle cx="274" cy="88" r="3" fill="#1a7a5e" opacity="0.6"/>
+            <circle cx="240" cy="168" r="3" fill="#1a2f5e" opacity="0.35"/>
+        </svg>
     </div>
+</section>
 
+<div class="blog-container">
     <div class="blog-content">
         <!-- Category Filter (Optional) -->
         <div class="blog-categories">
@@ -70,32 +109,22 @@ meta: |
     </div>
 </div>
 
+<!-- SVG wave divider above footer -->
+<div class="svg-section-divider" style="background:#f0f7ff; margin-top:2rem;">
+    <svg viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="height:50px;">
+        <path d="M0 25 C360 50 1080 0 1440 25 L1440 50 L0 50 Z" fill="#1a2f5e"/>
+    </svg>
+</div>
+
 <style>
 .blog-container {
     max-width: 900px;
-    margin: 3rem auto;
-    padding: 2rem;
+    margin: 2.5rem auto;
+    padding: 0 2rem;
 }
 
-.blog-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.blog-title {
-    font-size: 2.75rem;
-    color: #111827;
-    margin-bottom: 1rem;
-    font-weight: 700;
-    font-family: "Georgia", "Times New Roman", serif;
-}
-
-.blog-subtitle {
-    font-size: 1.125rem;
-    color: #374151;
-    max-width: 600px;
-    margin: 0 auto;
-    font-family: "Charter", "Times New Roman", serif;
+.blog-content {
+    margin-top: 0;
 }
 
 .blog-categories {
@@ -119,9 +148,9 @@ meta: |
 
 .category-filter:hover,
 .category-filter.active {
-    border-color: #667eea;
-    color: #667eea;
-    background: #f0f0ff;
+    border-color: #e8453c;
+    color: #e8453c;
+    background: rgba(232, 69, 60, 0.06);
 }
 
 .blog-list {
@@ -139,18 +168,36 @@ meta: |
     text-decoration: none;
     color: inherit;
     display: block;
-    padding: 1.5rem;
+    padding: 1.5rem 3rem 1.5rem 1.5rem;
     background: #ffffff;
     border-radius: 8px;
-    border-left: 4px solid #e5e7eb;
+    border-left: 4px solid #e8453c;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
+    position: relative;
+}
+
+.blog-link::after {
+    content: "→";
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #e8453c;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+    opacity: 0.7;
 }
 
 .blog-link:hover {
-    border-left-color: #d1d5db;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateX(2px);
+    border-left-color: #e8453c;
+    box-shadow: 0 8px 24px rgba(26, 47, 94, 0.13);
+    transform: translateY(-3px);
+}
+
+.blog-link:hover::after {
+    transform: translateY(-50%) translateX(6px);
+    opacity: 1;
 }
 
 .blog-item-content {
@@ -162,7 +209,7 @@ meta: |
 .blog-post-title {
     font-size: 1.5rem;
     margin: 0;
-    color: #111827;
+    color: #1a2f5e;
     font-weight: 600;
     line-height: 1.3;
     font-family: "Georgia", "Times New Roman", serif;
@@ -181,6 +228,7 @@ meta: |
     flex-wrap: wrap;
     font-size: 0.85rem;
     color: #999;
+    align-items: center;
 }
 
 .blog-meta-date {
@@ -191,10 +239,10 @@ meta: |
 
 .blog-meta-category {
     display: inline-block;
-    background: #f3f4f6;
-    color: #374151;
-    padding: 0.25rem 0.75rem;
-    border-radius: 3px;
+    background: #e8453c;
+    color: #ffffff;
+    padding: 0.2rem 0.75rem;
+    border-radius: 20px;
     font-weight: 600;
     text-transform: uppercase;
     font-size: 0.75rem;
@@ -202,12 +250,16 @@ meta: |
 }
 
 @media (max-width: 768px) {
-    .blog-title {
-        font-size: 2rem;
+    .blog-container {
+        padding: 0 1rem;
     }
 
     .blog-link {
-        padding: 1.25rem;
+        padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+    }
+
+    .blog-link::after {
+        display: none;
     }
 
     .blog-post-title {
