@@ -380,6 +380,10 @@ body {
   margin: 1.5rem 0;
 }
 
+.blog-post pre[style] {
+  background: transparent;
+}
+
 .blog-post img {
   display: block;
   margin: 2rem auto;
